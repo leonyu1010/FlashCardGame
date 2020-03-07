@@ -21,7 +21,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             _gameConfig = gameConfig;
 
             _isZeroIncluded = true;
-            _gameConfig.SelectedOperator = new OperatorClass(Operator.Divide);
+            _gameConfig.SelectedOperator = new OperatorClass(Operator.Multiply);
             //Operators = new List<string>
             //{
             //    MaterialDesignIcons.Plus,

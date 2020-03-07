@@ -1,4 +1,5 @@
-﻿using FlashCardGame.Core.Events;
+﻿using FlashCardGame.Core.Constants;
+using FlashCardGame.Core.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -14,6 +15,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         {
             _ea = ea;
             _ea.GetEvent<UpdateScoreEvent>().Subscribe(UpdateScore);
+            _ea.GetEvent<GameControlEvent>().Subscribe(HandleGameControlMessage);
         }
 
         public int TotalScore
@@ -35,9 +37,22 @@ namespace FlashCardGame.Modules.Game.ViewModels
         }
 
         private readonly IEventAggregator _ea;
+
         private int _totalScore;
+
         private int _correctCount;
+
         private int _wrongCount;
+
+        private void HandleGameControlMessage(string message)
+        {
+            if (message == GameControlMessage.Start)
+            {
+                TotalScore = 0;
+                CorrectCount = 0;
+                WrongCount = 0;
+            }
+        }
 
         private void UpdateScore(int score)
         {
@@ -51,13 +66,5 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 WrongCount += 1;
             }
         }
-
-        //public MessageListViewModel(IEventAggregator ea)
-        //{
-        //    _ea = ea;
-        //    Messages = new ObservableCollection<string>();
-
-        //    _ea.GetEvent<MessageSentEvent>().Subscribe(MessageReceived);
-        //}
     }
 }

@@ -23,7 +23,7 @@ namespace FlashCardGame.Core
 
         public int GetOneNumber(int min, int max)
         {
-            return _generator.Next(min, max + 1);
+            return _generator.Next(min, max);
         }
 
         private Random _generator;

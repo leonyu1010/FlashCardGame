@@ -6,9 +6,10 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Horizontal">
@@ -23,10 +24,14 @@
         <StackPanel x:Name="QuestionPanel" Grid.Column="1" Orientation="Horizontal">
             <ContentControl prism:RegionManager.RegionName="QuestionRegion" />
         </StackPanel>
-        <StackPanel x:Name="ScorePanel" Grid.Column="2" Orientation="Horizontal">
+        <StackPanel x:Name="FeedbackPanel" Grid.Column="2" Orientation="Horizontal">
+            <ContentControl prism:RegionManager.RegionName="FeedbackRegion" />
+        </StackPanel>
+
+        <StackPanel x:Name="ScorePanel" Grid.Column="3" Orientation="Horizontal">
             <ContentControl prism:RegionManager.RegionName="ScoreBoardRegion" />
         </StackPanel>
-        <StackPanel x:Name="TimingPanel" Grid.Column="3" Orientation="Horizontal">
+        <StackPanel x:Name="TimingPanel" Grid.Column="4" Orientation="Horizontal">
             <ContentControl prism:RegionManager.RegionName="TimingRegion" />
         </StackPanel>
     </Grid>

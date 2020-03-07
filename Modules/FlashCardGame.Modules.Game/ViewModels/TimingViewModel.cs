@@ -45,6 +45,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
         {
             if (message == GameControlMessage.Start)
             {
+                if (_gameTimer != null)
+                {
+                    _gameTimer.Dispose();
+                }
                 FireTimer();
             }
             else if (message == GameControlMessage.Stop)

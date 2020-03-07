@@ -45,7 +45,16 @@ namespace FlashCardGame.Modules.Game.Service
             _indexOfNextPair = 0;
         }
 
-        private readonly IAppLogger _logger;
+        public List<GameQuestion> GenerateAllQuestions()
+        {
+            var questions = new List<GameQuestion>();
+            for (int i = 0; i < _pool.Count; ++i)
+            {
+                questions.Add(GenerateQuestion());
+            }
+            return questions;
+        }
+
         private readonly IGameConfig _gameConfig;
 
         private readonly IRandomNumberGenerator _rng;
@@ -60,9 +69,9 @@ namespace FlashCardGame.Modules.Game.Service
             int min = _gameConfig.MinValue;
             int max = _gameConfig.MaxValue;
 
-            foreach (var number1 in Enumerable.Range(min, max))
+            foreach (var number1 in Enumerable.Range(min, max + 1))
             {
-                foreach (var number2 in Enumerable.Range(min, max))
+                foreach (var number2 in Enumerable.Range(min, max + 1))
                 {
                     _pool.Add(new NumberPair { Number1 = number1, Number2 = number2 });
                 }
@@ -90,17 +99,5 @@ namespace FlashCardGame.Modules.Game.Service
                 _pool[n] = value;
             }
         }
-
-        //private NumberPair GetOnePair()
-        //{
-        //    int randIndexBound = _pool.Count - _generatedCount;
-        //    int lastIndexToSwap = randIndexBound - 1;
-        //    int randIndex = _rng.GetOneNumber(0, randIndexBound);
-        //    var pair = _pool[randIndex];
-        //    _pool[randIndex] = _pool[lastIndexToSwap];
-        //    _pool[lastIndexToSwap] = pair;
-        //    _generatedCount++;
-        //    return pair;
-        //}
     }
 }

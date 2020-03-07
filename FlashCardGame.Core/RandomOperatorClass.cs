@@ -8,7 +8,7 @@ namespace FlashCardGame.Core
     {
         public RandomOperatorClass(IRandomNumberGenerator rng)
         {
-            _op = new OperatorClass((Operator)_rng.GetOneNumber(0, 4));
+            _op = new OperatorClass((Operator)rng.GetOneNumber(0, 4));
         }
 
         public string ToSign()

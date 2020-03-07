@@ -8,5 +8,7 @@ namespace FlashCardGame.Modules.Game.Service
     public interface IQuestionGenerator
     {
         GameQuestion GenerateQuestion();
+
+        List<GameQuestion> GenerateAllQuestions();
     }
 }

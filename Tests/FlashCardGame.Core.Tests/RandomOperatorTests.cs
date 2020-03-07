@@ -36,6 +36,7 @@ namespace FlashCardGame.Core.Tests
         {
             //Arrange
             var rngMock = new Mock<IRandomNumberGenerator>();
+            var value = (int)op;
             rngMock.Setup(rngMock => rngMock.GetOneNumber(0, 4)).Returns((int)op);
 
             //Act

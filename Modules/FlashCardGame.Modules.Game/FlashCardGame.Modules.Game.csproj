@@ -68,10 +68,14 @@
     <Compile Include="Service\IQuestionGenerator.cs" />
     <Compile Include="Service\OperatorClassFactory.cs" />
     <Compile Include="Service\QuestionGenerator.cs" />
+    <Compile Include="ViewModels\AnswerFeedbackViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
     <Compile Include="ViewModels\TimingViewModel.cs" />
+    <Compile Include="Views\AnswerFeedbackView.xaml.cs">
+      <DependentUpon>AnswerFeedbackView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
@@ -105,6 +109,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AnswerFeedbackView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
