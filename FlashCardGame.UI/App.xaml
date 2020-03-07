@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:FlashCardGame.UI"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

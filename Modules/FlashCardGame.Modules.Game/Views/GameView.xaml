@@ -12,14 +12,23 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Horizontal">
+        <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Vertical">
             <Button Command="{Binding StartNewGameCommand}" Margin="10, 10, 10, 10" Content="Start New Game" />
             <CheckBox IsChecked="{Binding Path=IsZeroIncluded}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
+            <CheckBox IsChecked="{Binding Path=UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}">Use Random Arithmetic Operation</CheckBox>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       materialDesign:HintAssist.HelperText="Select one Operator"
-                      ItemsSource="{Binding Operators}"
-                      SelectedItem="{Binding SelectedOperator}"
-                      FontSize="18" Margin="10, 10, 10, 10" />
+                      ItemsSource="{Binding Path=Operators}"
+                      SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}"
+                      FontSize="18" Margin="10, 10, 10, 10">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="{Binding Icon}" Height="20" Width="20" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel x:Name="QuestionPanel" Grid.Column="1" Orientation="Horizontal">
             <ContentControl prism:RegionManager.RegionName="QuestionRegion" />

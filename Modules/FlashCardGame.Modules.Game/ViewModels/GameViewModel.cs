@@ -21,25 +21,47 @@ namespace FlashCardGame.Modules.Game.ViewModels
             _gameConfig = gameConfig;
 
             _isZeroIncluded = true;
-            _gameConfig.SelectedOperator = new ArithmeticOp(Operator.Multiply);
-            //Operators = new List<string>
-            //{
-            //    MaterialDesignIcons.Plus,
-            //    MaterialDesignIcons.Minus,
-            //    MaterialDesignIcons.Multiplication,
-            //    MaterialDesignIcons.Division
-            //};
+
+            Operators = new ObservableCollection<OperatorItem>
+            {
+                new OperatorItem()
+                {
+                    Name = Operator.Plus,
+                    Icon = MaterialDesignIcons.Plus,
+                    Op = new ArithmeticOp(Operator.Plus)
+                },
+                new OperatorItem()
+                {
+                    Name = Operator.Minus,
+                    Icon = MaterialDesignIcons.Minus,
+                    Op = new ArithmeticOp(Operator.Minus)
+                },
+                new OperatorItem()
+                {
+                    Name = Operator.Multiply,
+                    Icon = MaterialDesignIcons.Multiplication,
+                    Op = new ArithmeticOp(Operator.Multiply)
+                },
+                new OperatorItem()
+                {
+                    Name = Operator.Divide,
+                    Icon = MaterialDesignIcons.Division,
+                    Op = new ArithmeticOp(Operator.Divide)
+                }
+            };
         }
 
-        public IArithmeticOp SelectedOperator
+        public OperatorItem SelectedOp
         {
-            get { return _selectedOperator; }
+            get { return _selectedOp; }
             set
             {
-                SetProperty(ref _selectedOperator, value);
-                _gameConfig.SelectedOperator = _selectedOperator;
+                SetProperty(ref _selectedOp, value);
+                _gameConfig.SelectedOp = _selectedOp.Op;
             }
         }
+
+        public ObservableCollection<OperatorItem> Operators { get; }
 
         public DelegateCommand StartNewGameCommand =>
             _startNewGameCommand ?? (_startNewGameCommand = new DelegateCommand(ExecuteNewGame));
@@ -54,11 +76,25 @@ namespace FlashCardGame.Modules.Game.ViewModels
             }
         }
 
+        public bool UseRandomOp
+        {
+            get { return _useRandomOp; }
+            set
+            {
+                SetProperty(ref _useRandomOp, value);
+                _gameConfig.UseRandomOp = _useRandomOp;
+            }
+        }
+
         private readonly IEventAggregator _ea;
         private readonly IGameConfig _gameConfig;
+        private bool _useRandomOp;
+        private List<OperatorItem> _operators;
 
-        private IArithmeticOp _selectedOperator;
+        private OperatorItem _selectedOp;
+
         private DelegateCommand _startNewGameCommand;
+
         private bool _isZeroIncluded;
 
         private void ExecuteNewGame()

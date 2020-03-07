@@ -20,10 +20,10 @@ namespace FlashCardGame.Core.Tests
         public void ArithmeticOpTests_Divide_BiggerThanEps()
         {
             var op = new ArithmeticOp(Operator.Divide);
+            var denominator = 0.0001;
+            var result = op.Divide(1, denominator);
 
-            var result = op.Divide(1, 0.2);
-
-            Assert.Equal(1 / 0.2, result);
+            Assert.Equal(1 / denominator, result);
         }
     }
 }

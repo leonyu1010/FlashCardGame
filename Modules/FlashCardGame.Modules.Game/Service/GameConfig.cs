@@ -9,17 +9,17 @@ namespace FlashCardGame.Modules.Game.Service
 {
     public class GameConfig : IGameConfig
     {
-        public GameConfig(IRandomNumberGenerator rng)
+        public GameConfig()
         {
-            _rng = rng;
             GameDuration = TimeSpan.FromMinutes(1);
+            MinValue = 0;
             MaxValue = 12;
         }
 
-        public IArithmeticOp SelectedOperator { get; set; }
+        public IArithmeticOp SelectedOp { get; set; }
         public TimeSpan GameDuration { get; set; }
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
-        private readonly IRandomNumberGenerator _rng;
+        public bool UseRandomOp { get; set; }
     }
 }

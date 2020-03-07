@@ -22,7 +22,7 @@ namespace FlashCardGame.Modules.Game.Tests
             var configMock = new Mock<IGameConfig>();
             configMock.Setup(configMock => configMock.MinValue).Returns(0);
             configMock.Setup(configMock => configMock.MaxValue).Returns(12);
-            configMock.Setup(configMock => configMock.SelectedOperator).Returns(new ArithmeticOp((Operator)operatorIndex));
+            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp((Operator)operatorIndex));
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
@@ -46,7 +46,7 @@ namespace FlashCardGame.Modules.Game.Tests
             var configMock = new Mock<IGameConfig>();
             configMock.Setup(configMock => configMock.MinValue).Returns(0);
             configMock.Setup(configMock => configMock.MaxValue).Returns(12);
-            configMock.Setup(configMock => configMock.SelectedOperator).Returns(new ArithmeticOp(Operator.Divide));
+            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp(Operator.Divide));
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);

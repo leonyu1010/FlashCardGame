@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FlashCardGame.Modules.Game.Service
 {
-    public class OperatorClassFactory
+    public class ArithmeticOpFactory
     {
-        public OperatorClassFactory(IRandomNumberGenerator rng)
+        public ArithmeticOpFactory(IRandomNumberGenerator rng)
         {
             _rng = rng;
         }
