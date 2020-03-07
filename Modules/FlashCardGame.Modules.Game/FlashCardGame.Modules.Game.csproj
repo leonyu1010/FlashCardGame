@@ -68,7 +68,6 @@
     <Compile Include="Service\GameConfig.cs" />
     <Compile Include="Service\IGameConfig.cs" />
     <Compile Include="Service\IQuestionGenerator.cs" />
-    <Compile Include="Service\ArithmeticOpFactory.cs" />
     <Compile Include="Service\QuestionGenerator.cs" />
     <Compile Include="ViewModels\AnswerFeedbackViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
