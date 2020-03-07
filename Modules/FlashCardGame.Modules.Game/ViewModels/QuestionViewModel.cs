@@ -70,6 +70,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void ExecuteCheckAnswer()
         {
+            double answer = double.Parse(AnswerText);
+
             bool correct = _question.CorrectAnswer == _answerText;
             int score = correct ? 1 : -1;
             _ea.GetEvent<UpdateScoreEvent>().Publish(score);

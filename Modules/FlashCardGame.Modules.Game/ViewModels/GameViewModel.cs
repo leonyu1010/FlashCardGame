@@ -22,8 +22,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
             _isZeroIncluded = true;
 
-            InitOperatorSelection();
-
+            Operators = _gameConfig.Operators;
             SelectedOp = Operators[2];
         }
 
@@ -82,37 +81,6 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private DelegateCommand _startNewGameCommand;
 
         private bool _isZeroIncluded;
-
-        private void InitOperatorSelection()
-        {
-            Operators = new List<OperatorItem>
-            {
-                new OperatorItem()
-                {
-                    Name = Operator.Plus,
-                    Icon = MaterialDesignIcons.Plus,
-                    Op = new ArithmeticOp(Operator.Plus)
-                },
-                new OperatorItem()
-                {
-                    Name = Operator.Minus,
-                    Icon = MaterialDesignIcons.Minus,
-                    Op = new ArithmeticOp(Operator.Minus)
-                },
-                new OperatorItem()
-                {
-                    Name = Operator.Multiply,
-                    Icon = MaterialDesignIcons.Multiplication,
-                    Op = new ArithmeticOp(Operator.Multiply)
-                },
-                new OperatorItem()
-                {
-                    Name = Operator.Divide,
-                    Icon = MaterialDesignIcons.Division,
-                    Op = new ArithmeticOp(Operator.Divide)
-                }
-            };
-        }
 
         private void ExecuteNewGame()
         {

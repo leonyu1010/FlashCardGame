@@ -2,6 +2,8 @@
 {
     public interface IArithmeticOp
     {
+        Operator Name { get; }
+
         string ToSign();
 
         int Calculate(NumberPair pair);

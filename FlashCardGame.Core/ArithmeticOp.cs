@@ -8,15 +8,17 @@ namespace FlashCardGame.Core
     {
         public ArithmeticOp(Operator op)
         {
-            _op = op;
+            Name = op;
         }
+
+        public Operator Name { get; }
 
         public int Calculate(NumberPair pair)
         {
             int number1 = pair.Number1;
             int number2 = pair.Number2;
 
-            switch (_op)
+            switch (Name)
             {
                 case Operator.Plus:
                     return number1 + number2;
@@ -42,7 +44,7 @@ namespace FlashCardGame.Core
 
         public string ToSign()
         {
-            switch (_op)
+            switch (Name)
             {
                 case Operator.Plus:
                     return "+";
@@ -63,7 +65,7 @@ namespace FlashCardGame.Core
 
         public bool IsValid(NumberPair pair)
         {
-            if (_op == Operator.Divide && pair.Number2 == 0)
+            if (Name == Operator.Divide && pair.Number2 == 0)
             {
                 return false;
             }
@@ -80,6 +82,5 @@ namespace FlashCardGame.Core
         }
 
         private readonly double eps = 1e-6;
-        private readonly Operator _op;
     }
 }

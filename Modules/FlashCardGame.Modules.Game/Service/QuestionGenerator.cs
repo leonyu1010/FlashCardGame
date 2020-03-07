@@ -21,8 +21,13 @@ namespace FlashCardGame.Modules.Game.Service
         {
             NumberPair pair;
 
-            var op = _gameConfig.UseRandomOp ? new ArithmeticOp((Operator)_rng.GetOneNumber(0, 4))
-                : _gameConfig.SelectedOp;
+            var op = _gameConfig.SelectedOp;
+
+            if (_gameConfig.UseRandomOp)
+            {
+                int val = _rng.GetOneNumber(0, 4);
+                op = new ArithmeticOp((Operator)val);
+            }
 
             while (true)
             {
@@ -37,7 +42,8 @@ namespace FlashCardGame.Modules.Game.Service
             return new GameQuestion()
             {
                 Question = $"{pair.Number1} {op.ToSign()} {pair.Number2}",
-                CorrectAnswer = op.Calculate(pair).ToString()
+                Pair = pair,
+                Op = _gameConfig.Operators[(int)op.Name]
             };
         }
 
