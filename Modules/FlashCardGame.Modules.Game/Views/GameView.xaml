@@ -6,11 +6,11 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Vertical">
             <Button Command="{Binding StartNewGameCommand}" Margin="10, 10, 10, 10" Content="Start New Game" />

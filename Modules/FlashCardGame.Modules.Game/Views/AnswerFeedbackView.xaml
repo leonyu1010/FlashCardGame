@@ -7,8 +7,7 @@
     <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center"  Width="400" Height="100" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
 
         <StackPanel Orientation="Horizontal">
-            <materialDesign:PackIcon Kind="Tick" Height="64" Width="64" />
-            <materialDesign:PackIcon Kind="QuestionMarkCircle" Height="64" Width="64" />
+            <materialDesign:PackIcon Kind="{Binding Icon}" Height="30" Width="30" />
             <Label Content="{Binding Feedback}" />
         </StackPanel>
     </materialDesign:Card>
