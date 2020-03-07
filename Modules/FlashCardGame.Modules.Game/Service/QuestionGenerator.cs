@@ -21,13 +21,8 @@ namespace FlashCardGame.Modules.Game.Service
         {
             NumberPair pair;
 
-            var op = _gameConfig.SelectedOp;
-
-            if (_gameConfig.UseRandomOp)
-            {
-                int val = _rng.GetOneNumber(0, 4);
-                op = new ArithmeticOp((Operator)val);
-            }
+            var op = _gameConfig.UseRandomOp ? new ArithmeticOp((Operator)_rng.GetOneNumber(0, 4))
+                : _gameConfig.SelectedOp;
 
             while (true)
             {
@@ -41,15 +36,14 @@ namespace FlashCardGame.Modules.Game.Service
 
             return new GameQuestion()
             {
-                Question = $"{pair.Number1} {op.ToSign()} {pair.Number2}",
                 Pair = pair,
-                Op = _gameConfig.Operators[(int)op.Name]
+                OpCtx = _gameConfig.Operators[(int)op.Name]
             };
         }
 
         public void Reset()
         {
-            CreatePoolOfNumberPair();
+            CreatePoolOfAllNumberPairs();
             ShufflePool();
             _indexOfNextPair = 0;
         }
@@ -61,7 +55,7 @@ namespace FlashCardGame.Modules.Game.Service
 
         private int _indexOfNextPair;
 
-        private void CreatePoolOfNumberPair()
+        private void CreatePoolOfAllNumberPairs()
         {
             _pool = new List<NumberPair>();
             int min = _gameConfig.MinValue;

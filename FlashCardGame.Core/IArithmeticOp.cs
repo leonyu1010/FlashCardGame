@@ -4,9 +4,7 @@
     {
         Operator Name { get; }
 
-        string ToSign();
-
-        int Calculate(NumberPair pair);
+        double Calculate(NumberPair pair);
 
         double Divide(double numerator, double denominator);
 

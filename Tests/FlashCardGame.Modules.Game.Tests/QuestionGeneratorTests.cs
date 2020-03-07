@@ -19,10 +19,7 @@ namespace FlashCardGame.Modules.Game.Tests
         {
             //Arrange
 
-            var configMock = new Mock<IGameConfig>();
-            configMock.Setup(configMock => configMock.MinValue).Returns(0);
-            configMock.Setup(configMock => configMock.MaxValue).Returns(12);
-            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp((Operator)operatorIndex));
+            Mock<IGameConfig> configMock = SetupConfigMock(operatorIndex);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
@@ -31,7 +28,7 @@ namespace FlashCardGame.Modules.Game.Tests
             int count = 0;
             while (count++ < expectedSize)
             {
-                questions.Add(questionGenerator.GenerateQuestion().Question);
+                questions.Add(questionGenerator.GenerateQuestion().ToString());
             }
 
             //Assert
@@ -42,11 +39,7 @@ namespace FlashCardGame.Modules.Game.Tests
         public void QuestionGeneratorTests_CreateValidPairPool_ForDivision()
         {
             //Arrange
-
-            var configMock = new Mock<IGameConfig>();
-            configMock.Setup(configMock => configMock.MinValue).Returns(0);
-            configMock.Setup(configMock => configMock.MaxValue).Returns(12);
-            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp(Operator.Divide));
+            var configMock = SetupConfigMock((int)Operator.Divide);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
@@ -57,19 +50,55 @@ namespace FlashCardGame.Modules.Game.Tests
             int divideByZero = 0;
             while (count++ < poolSize)
             {
-                var question = questionGenerator.GenerateQuestion().Question;
-                var denominator = question.Split('/')[1].Trim();
-                if (denominator == "0")
+                var question = questionGenerator.GenerateQuestion();
+                var denominator = question.Pair.Number2;
+                if (denominator == 0)
                 {
                     divideByZero++;
                 }
 
-                questions.Add(question);
+                questions.Add(question.ToString());
             }
 
             //Assert
             Assert.Equal(expectedSize, questions.Count);
             Assert.Equal(0, divideByZero);
+        }
+
+        private static Mock<IGameConfig> SetupConfigMock(int operatorIndex)
+        {
+            var configMock = new Mock<IGameConfig>();
+            configMock.Setup(configMock => configMock.MinValue).Returns(0);
+            configMock.Setup(configMock => configMock.MaxValue).Returns(12);
+            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp((Operator)operatorIndex));
+            configMock.Setup(configMock => configMock.Operators).Returns(new List<OperatorContext>
+            {
+                new OperatorContext()
+                {
+                    Name = Operator.Plus,
+                    Icon = MaterialDesignIcons.Plus,
+                    Handler = new ArithmeticOp(Operator.Plus)
+                },
+                new OperatorContext()
+                {
+                    Name = Operator.Minus,
+                    Icon = MaterialDesignIcons.Minus,
+                    Handler = new ArithmeticOp(Operator.Minus)
+                },
+                new OperatorContext()
+                {
+                    Name = Operator.Multiply,
+                    Icon = MaterialDesignIcons.Multiplication,
+                    Handler = new ArithmeticOp(Operator.Multiply)
+                },
+                new OperatorContext()
+                {
+                    Name = Operator.Divide,
+                    Icon = MaterialDesignIcons.Division,
+                    Handler = new ArithmeticOp(Operator.Divide)
+                }
+            });
+            return configMock;
         }
     }
 }

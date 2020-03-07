@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlashCardGame.Core
 {
-    public struct NumberPair
+    public class NumberPair
     {
-        public int Number1;
-        public int Number2;
+        public int Number1 { get; set; }
+        public int Number2 { get; set; }
     }
 }

@@ -7,9 +7,12 @@ namespace FlashCardGame.Model
 {
     public class GameQuestion
     {
-        public string Question { get; set; }
-        public string CorrectAnswer { get; set; }
         public NumberPair Pair { get; set; }
-        public OperatorItem Op { get; set; }
+        public OperatorContext OpCtx { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Pair.Number1} {OpCtx.Name.ToSign()} {Pair.Number2}";
+        }
     }
 }

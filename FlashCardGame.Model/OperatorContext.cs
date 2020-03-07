@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FlashCardGame.Model
 {
-    public class OperatorItem
+    public class OperatorContext
     {
-        public IArithmeticOp Op { get; set; }
+        public IArithmeticOp Handler { get; set; }
         public Operator Name { get; set; }
         public string Icon { get; set; }
 

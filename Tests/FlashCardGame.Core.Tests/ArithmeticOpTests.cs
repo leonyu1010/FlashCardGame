@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using Moq;
+using FlashCardGame.Core.Constants;
 
 namespace FlashCardGame.Core.Tests
 {
@@ -20,7 +21,7 @@ namespace FlashCardGame.Core.Tests
         public void ArithmeticOpTests_Divide_BiggerThanEps()
         {
             var op = new ArithmeticOp(Operator.Divide);
-            var denominator = 0.0001;
+            var denominator = AppConstants.Tolerance + 0.1;
             var result = op.Divide(1, denominator);
 
             Assert.Equal(1 / denominator, result);

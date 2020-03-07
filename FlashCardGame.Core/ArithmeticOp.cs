@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCardGame.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,7 +14,7 @@ namespace FlashCardGame.Core
 
         public Operator Name { get; }
 
-        public int Calculate(NumberPair pair)
+        public double Calculate(NumberPair pair)
         {
             int number1 = pair.Number1;
             int number2 = pair.Number2;
@@ -35,29 +36,8 @@ namespace FlashCardGame.Core
                         {
                             throw new DivideByZeroException();
                         }
-                        return number1 / number2;
+                        return (double)number1 / number2;
                     }
-                default:
-                    throw new Exception("unexpected operator");
-            }
-        }
-
-        public string ToSign()
-        {
-            switch (Name)
-            {
-                case Operator.Plus:
-                    return "+";
-
-                case Operator.Minus:
-                    return "-";
-
-                case Operator.Multiply:
-                    return "*";
-
-                case Operator.Divide:
-                    return "/";
-
                 default:
                     throw new Exception("unexpected operator");
             }
@@ -74,13 +54,11 @@ namespace FlashCardGame.Core
 
         public double Divide(double numerator, double denominator)
         {
-            if (Math.Abs(denominator) < eps)
+            if (Math.Abs(denominator) < AppConstants.Tolerance)
             {
                 throw new DivideByZeroException();
             }
             return numerator / denominator;
         }
-
-        private readonly double eps = 1e-6;
     }
 }

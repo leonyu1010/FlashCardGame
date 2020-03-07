@@ -28,36 +28,36 @@ namespace FlashCardGame.Modules.Game.Service
 
         public bool UseRandomOp { get; set; }
 
-        public List<OperatorItem> Operators { get; set; }
+        public List<OperatorContext> Operators { get; set; }
 
         private void InitOperatorList()
         {
             //the operator sequence needs to math to public enum Operator
-            Operators = new List<OperatorItem>
+            Operators = new List<OperatorContext>
             {
-                new OperatorItem()
+                new OperatorContext()
                 {
                     Name = Operator.Plus,
                     Icon = MaterialDesignIcons.Plus,
-                    Op = new ArithmeticOp(Operator.Plus)
+                    Handler = new ArithmeticOp(Operator.Plus)
                 },
-                new OperatorItem()
+                new OperatorContext()
                 {
                     Name = Operator.Minus,
                     Icon = MaterialDesignIcons.Minus,
-                    Op = new ArithmeticOp(Operator.Minus)
+                    Handler = new ArithmeticOp(Operator.Minus)
                 },
-                new OperatorItem()
+                new OperatorContext()
                 {
                     Name = Operator.Multiply,
                     Icon = MaterialDesignIcons.Multiplication,
-                    Op = new ArithmeticOp(Operator.Multiply)
+                    Handler = new ArithmeticOp(Operator.Multiply)
                 },
-                new OperatorItem()
+                new OperatorContext()
                 {
                     Name = Operator.Divide,
                     Icon = MaterialDesignIcons.Division,
-                    Op = new ArithmeticOp(Operator.Divide)
+                    Handler = new ArithmeticOp(Operator.Divide)
                 }
             };
         }

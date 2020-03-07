@@ -22,10 +22,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
             _ea.GetEvent<GameControlEvent>().Subscribe(HandleGameControlEvent);
         }
 
-        public string QuestionText
+        public GameQuestion Question
         {
-            get { return _questionText; }
-            set { SetProperty(ref _questionText, value); }
+            get { return _question; }
+            set { SetProperty(ref _question, value); }
         }
 
         public string AnswerText
@@ -35,15 +35,11 @@ namespace FlashCardGame.Modules.Game.ViewModels
         }
 
         public DelegateCommand CheckAnswerCommand => _checkAnswerCommand ?? (_checkAnswerCommand = new DelegateCommand(ExecuteCheckAnswer));
-
         public DelegateCommand SubmitAnswerCommand => _submitAnswerCommand ?? (_submitAnswerCommand = new DelegateCommand(ExecuteSubmitAnswer));
-
         public DelegateCommand NextQuestionCommand => _nextQuestionCommand ?? (_nextQuestionCommand = new DelegateCommand(ExecuteNextQuestion));
-
         private readonly IQuestionGenerator _questionGenerator;
-
         private readonly IEventAggregator _ea;
-
+        private GameQuestion _question;
         private DelegateCommand _checkAnswerCommand;
 
         private DelegateCommand _submitAnswerCommand;
@@ -53,8 +49,6 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private string _questionText;
 
         private string _answerText;
-
-        private GameQuestion _question;
 
         private void HandleGameControlEvent(string message)
         {
@@ -71,8 +65,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private void ExecuteCheckAnswer()
         {
             double answer = double.Parse(AnswerText);
-
-            bool correct = _question.CorrectAnswer == _answerText;
+            double correctAnswer = Question.OpCtx.Handler.Calculate(Question.Pair);
+            bool correct = Math.Abs(correctAnswer - answer) < AppConstants.Tolerance;
             int score = correct ? 1 : -1;
             _ea.GetEvent<UpdateScoreEvent>().Publish(score);
             _ea.GetEvent<SendAnswerResultEvent>().Publish(correct);
@@ -86,8 +80,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void ExecuteNextQuestion()
         {
-            _question = _questionGenerator.GenerateQuestion();
-            QuestionText = _question.Question;
+            Question = _questionGenerator.GenerateQuestion();
             AnswerText = "";
         }
     }

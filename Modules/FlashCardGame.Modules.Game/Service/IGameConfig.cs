@@ -9,7 +9,7 @@ namespace FlashCardGame.Modules.Game.Service
     public interface IGameConfig
     {
         IArithmeticOp SelectedOp { get; set; }
-        List<OperatorItem> Operators { get; set; }
+        List<OperatorContext> Operators { get; set; }
         TimeSpan GameDuration { get; set; }
         int MinValue { get; set; }
         int MaxValue { get; set; }

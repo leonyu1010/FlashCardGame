@@ -9,7 +9,12 @@
         <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
             <StackPanel Orientation="Vertical" Margin="16">
                 <materialDesign:PackIcon Kind="QuestionMarkCircle" Height="64" Width="64" />
-                <Label x:Name="questionText" FontSize="20" Content="{Binding Path=QuestionText}" />
+
+                <StackPanel Orientation="Horizontal" Margin="16">
+                    <Label x:Name="Number1Text" FontSize="20" Width="30" Content="{Binding Question.Pair.Number1}" />
+                    <materialDesign:PackIcon Kind="{Binding Question.OpCtx.Icon}" Height="20" Width="20" />
+                    <Label x:Name="Number2Text" FontSize="20" Width="30" Content="{Binding Question.Pair.Number2}" />
+                </StackPanel>
                 <controls:NumericTextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Your Answer"
                                          Width="100" Margin="0 0 0 0" VerticalAlignment="Bottom"
                                          Text="{Binding AnswerText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, ConverterCulture='en-US', StringFormat='F2'}" IsDecimalAllowed="True"

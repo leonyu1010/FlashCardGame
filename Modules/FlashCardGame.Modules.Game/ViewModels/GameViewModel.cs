@@ -26,17 +26,17 @@ namespace FlashCardGame.Modules.Game.ViewModels
             SelectedOp = Operators[2];
         }
 
-        public OperatorItem SelectedOp
+        public OperatorContext SelectedOp
         {
             get { return _selectedOp; }
             set
             {
                 SetProperty(ref _selectedOp, value);
-                _gameConfig.SelectedOp = _selectedOp.Op;
+                _gameConfig.SelectedOp = _selectedOp.Handler;
             }
         }
 
-        public List<OperatorItem> Operators
+        public List<OperatorContext> Operators
         {
             get { return _operators; }
             set
@@ -74,9 +74,9 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private bool _useRandomOp;
 
-        private List<OperatorItem> _operators;
+        private List<OperatorContext> _operators;
 
-        private OperatorItem _selectedOp;
+        private OperatorContext _selectedOp;
 
         private DelegateCommand _startNewGameCommand;
 
