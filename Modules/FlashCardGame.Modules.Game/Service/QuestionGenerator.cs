@@ -14,26 +14,21 @@ namespace FlashCardGame.Modules.Game.Service
             _rng = rng;
             _gameConfig = gameConfig;
 
-            _useRandomOp = _gameConfig.UseRandomOp;
-            if (!_useRandomOp)
-            {
-                _op = _gameConfig.SelectedOp;
-            }
             Reset();
         }
 
         public GameQuestion GenerateQuestion()
         {
             NumberPair pair;
-            if (_useRandomOp)
-            {
-                _op = new ArithmeticOp((Operator)_rng.GetOneNumber(0, 4));
-            }
+
+            var op = _gameConfig.UseRandomOp ? new ArithmeticOp((Operator)_rng.GetOneNumber(0, 4))
+                : _gameConfig.SelectedOp;
+
             while (true)
             {
                 pair = _pool[_indexOfNextPair];
                 UpdateIndexOfNextPair();
-                if (_op.IsValid(pair))
+                if (op.IsValid(pair))
                 {
                     break;
                 }
@@ -41,8 +36,8 @@ namespace FlashCardGame.Modules.Game.Service
 
             return new GameQuestion()
             {
-                Question = $"{pair.Number1} {_op.ToSign()} {pair.Number2}",
-                CorrectAnswer = _op.Calculate(pair).ToString()
+                Question = $"{pair.Number1} {op.ToSign()} {pair.Number2}",
+                CorrectAnswer = op.Calculate(pair).ToString()
             };
         }
 
@@ -53,10 +48,9 @@ namespace FlashCardGame.Modules.Game.Service
             _indexOfNextPair = 0;
         }
 
-        private readonly bool _useRandomOp;
         private readonly IGameConfig _gameConfig;
         private readonly IRandomNumberGenerator _rng;
-        private IArithmeticOp _op;
+
         private List<NumberPair> _pool;
 
         private int _indexOfNextPair;

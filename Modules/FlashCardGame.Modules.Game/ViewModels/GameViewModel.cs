@@ -22,7 +22,70 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
             _isZeroIncluded = true;
 
-            Operators = new ObservableCollection<OperatorItem>
+            InitOperatorSelection();
+
+            SelectedOp = Operators[2];
+        }
+
+        public OperatorItem SelectedOp
+        {
+            get { return _selectedOp; }
+            set
+            {
+                SetProperty(ref _selectedOp, value);
+                _gameConfig.SelectedOp = _selectedOp.Op;
+            }
+        }
+
+        public List<OperatorItem> Operators
+        {
+            get { return _operators; }
+            set
+            {
+                SetProperty(ref _operators, value);
+            }
+        }
+
+        public DelegateCommand StartNewGameCommand =>
+            _startNewGameCommand ?? (_startNewGameCommand = new DelegateCommand(ExecuteNewGame));
+
+        public bool IsZeroIncluded
+        {
+            get { return _isZeroIncluded; }
+            set
+            {
+                SetProperty(ref _isZeroIncluded, value);
+                _gameConfig.MinValue = _isZeroIncluded ? 0 : 1;
+            }
+        }
+
+        public bool UseRandomOp
+        {
+            get { return _useRandomOp; }
+            set
+            {
+                SetProperty(ref _useRandomOp, value);
+                _gameConfig.UseRandomOp = _useRandomOp;
+            }
+        }
+
+        private readonly IEventAggregator _ea;
+
+        private readonly IGameConfig _gameConfig;
+
+        private bool _useRandomOp;
+
+        private List<OperatorItem> _operators;
+
+        private OperatorItem _selectedOp;
+
+        private DelegateCommand _startNewGameCommand;
+
+        private bool _isZeroIncluded;
+
+        private void InitOperatorSelection()
+        {
+            Operators = new List<OperatorItem>
             {
                 new OperatorItem()
                 {
@@ -50,52 +113,6 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 }
             };
         }
-
-        public OperatorItem SelectedOp
-        {
-            get { return _selectedOp; }
-            set
-            {
-                SetProperty(ref _selectedOp, value);
-                _gameConfig.SelectedOp = _selectedOp.Op;
-            }
-        }
-
-        public ObservableCollection<OperatorItem> Operators { get; }
-
-        public DelegateCommand StartNewGameCommand =>
-            _startNewGameCommand ?? (_startNewGameCommand = new DelegateCommand(ExecuteNewGame));
-
-        public bool IsZeroIncluded
-        {
-            get { return _isZeroIncluded; }
-            set
-            {
-                SetProperty(ref _isZeroIncluded, value);
-                _gameConfig.MinValue = _isZeroIncluded ? 0 : 1;
-            }
-        }
-
-        public bool UseRandomOp
-        {
-            get { return _useRandomOp; }
-            set
-            {
-                SetProperty(ref _useRandomOp, value);
-                _gameConfig.UseRandomOp = _useRandomOp;
-            }
-        }
-
-        private readonly IEventAggregator _ea;
-        private readonly IGameConfig _gameConfig;
-        private bool _useRandomOp;
-        private List<OperatorItem> _operators;
-
-        private OperatorItem _selectedOp;
-
-        private DelegateCommand _startNewGameCommand;
-
-        private bool _isZeroIncluded;
 
         private void ExecuteNewGame()
         {

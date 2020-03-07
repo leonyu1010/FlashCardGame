@@ -60,6 +60,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         {
             if (message == GameControlMessage.Start)
             {
+                _questionGenerator.Reset();
                 ExecuteNextQuestion();
             }
             else if (message == GameControlMessage.Stop)

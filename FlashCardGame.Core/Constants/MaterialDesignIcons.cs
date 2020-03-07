@@ -6,9 +6,9 @@ namespace FlashCardGame.Core
 {
     public static class MaterialDesignIcons
     {
-        public const string Division = "\uF1D4";
-        public const string Minus = "\uF374";
-        public const string Plus = "\uF415";
-        public const string Multiplication = "\uF382";
+        public const string Division = "Division";
+        public const string Minus = "Minus";
+        public const string Plus = "Add";
+        public const string Multiplication = "Multiplication";
     }
 }

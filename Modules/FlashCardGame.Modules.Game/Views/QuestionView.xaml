@@ -3,16 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:FlashCardGame.Modules.Game.Control"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
             <StackPanel Orientation="Vertical" Margin="16">
                 <materialDesign:PackIcon Kind="QuestionMarkCircle" Height="64" Width="64" />
                 <Label x:Name="questionText" FontSize="20" Content="{Binding Path=QuestionText}" />
-                <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         materialDesign:HintAssist.Hint="Your Answer"
-                         Margin="0 0 0 0" VerticalAlignment="Bottom"
-                         Text="{Binding AnswerText, UpdateSourceTrigger=PropertyChanged}" />
+                <controls:NumericTextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Your Answer"
+                                         Width="100" Margin="0 0 0 0" VerticalAlignment="Bottom"
+                                         Text="{Binding AnswerText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, ConverterCulture='en-US', StringFormat='F2'}" IsDecimalAllowed="True"
+                                                MaxLength="20" Scale="2" IsEnabled="True">
+                    <controls:NumericTextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SubmitAnswerCommand}" />
+                    </controls:NumericTextBox.InputBindings>
+                </controls:NumericTextBox>
                 <Button Command="{Binding CheckAnswerCommand}" Margin="10, 10, 10, 10" Content="Check" />
                 <Button Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit" />
                 <Button Command="{Binding NextQuestionCommand}" Margin="10, 10, 10, 10" Content="Next" />
