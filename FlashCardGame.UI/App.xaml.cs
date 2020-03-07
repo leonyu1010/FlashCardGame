@@ -6,9 +6,9 @@ using System.Windows;
 using FlashCardGame.Modules.Game;
 using FlashCardGame.Core;
 
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+//using Microsoft.AppCenter;
+//using Microsoft.AppCenter.Analytics;
+//using Microsoft.AppCenter.Crashes;
 using System;
 
 namespace FlashCardGame.UI
@@ -21,10 +21,10 @@ namespace FlashCardGame.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            AppCenter.Start("cbab1745-6bff-4d73-96fa-d646517e527b",
-                   typeof(Analytics), typeof(Crashes));
-            AppCenter.Start("cbab1745-6bff-4d73-96fa-d646517e527b",
-                               typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("cbab1745-6bff-4d73-96fa-d646517e527b",
+            //       typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("cbab1745-6bff-4d73-96fa-d646517e527b",
+            //                   typeof(Analytics), typeof(Crashes));
         }
 
         protected override Window CreateShell()

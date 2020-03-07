@@ -64,6 +64,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Service\FileLogger.cs" />
     <Compile Include="Service\GameConfig.cs" />
     <Compile Include="Service\IGameConfig.cs" />
     <Compile Include="Service\IQuestionGenerator.cs" />

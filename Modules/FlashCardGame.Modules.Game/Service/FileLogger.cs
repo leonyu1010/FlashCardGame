@@ -1,16 +1,17 @@
-﻿using FlashCardGame.Core.Constants;
+﻿using FlashCardGame.Core;
+using FlashCardGame.Core.Constants;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlashCardGame.Core
+namespace FlashCardGame.Modules.Game.Service
 {
     public static class LoggerFactor
     {
         public static IAppLogger GetFileLogger()
         {
-            string _file = AppConstants.LogFolder + "DeckLinkService.log";
+            string _file = AppConstants.LogFolder + "FlashCard.log";
             var logger = (new LoggerConfiguration().WriteTo.Async(a => a.File(_file)).CreateLogger() as ILogger);
             return (logger as IAppLogger);
         }
@@ -20,7 +21,7 @@ namespace FlashCardGame.Core
     {
         public FileLogger()
         {
-            string _file = AppConstants.LogFolder + "DeckLinkService.log";
+            string _file = AppConstants.LogFolder + "FlashCard.log";
             var logger = (new LoggerConfiguration().WriteTo.Async(a => a.File(_file)).CreateLogger() as ILogger);
         }
     }
