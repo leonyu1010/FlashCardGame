@@ -9,6 +9,7 @@ using FlashCardGame.Core;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using System;
 
 namespace FlashCardGame.UI
 {
@@ -39,6 +40,15 @@ namespace FlashCardGame.UI
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<GameModule>();
+        }
+
+        private void Application_DispatcherUnhandledException(object sender,
+                            System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Unexpected error occured. Please inform the admin."
+              + Environment.NewLine + e.Exception.ToString(), "Unexpected error");
+
+            e.Handled = true;
         }
     }
 }

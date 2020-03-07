@@ -61,6 +61,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private void OnTimerEvent(long value)
         {
             _secondsRemaining = (int)_gameConfig.GameDuration.TotalSeconds - (int)value;
+            UpdateUI();
 
             if (value == _gameConfig.GameDuration.TotalSeconds)
             {

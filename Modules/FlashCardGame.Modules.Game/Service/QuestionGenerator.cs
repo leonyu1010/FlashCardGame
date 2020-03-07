@@ -28,6 +28,7 @@ namespace FlashCardGame.Modules.Game.Service
                 {
                     break;
                 }
+                //_logger.Information($"found invalid pair {pair}");
             }
 
             return new GameQuestion()
@@ -44,6 +45,7 @@ namespace FlashCardGame.Modules.Game.Service
             _indexOfNextPair = 0;
         }
 
+        private readonly IAppLogger _logger;
         private readonly IGameConfig _gameConfig;
 
         private readonly IRandomNumberGenerator _rng;
