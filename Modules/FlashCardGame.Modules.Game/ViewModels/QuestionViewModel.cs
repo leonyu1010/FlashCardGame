@@ -1,4 +1,9 @@
-﻿using Prism.Commands;
+﻿using FlashCardGame.Core.Constants;
+using FlashCardGame.Core.Events;
+using FlashCardGame.Model;
+using FlashCardGame.Modules.Game.Service;
+using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -8,10 +13,13 @@ namespace FlashCardGame.Modules.Game.ViewModels
 {
     public class QuestionViewModel : BindableBase
     {
-        public QuestionViewModel()
+        public QuestionViewModel(IQuestionGenerator questionGenerator, IEventAggregator ea)
         {
-            _questionText = "My Question";
+            _questionGenerator = questionGenerator;
+            _ea = ea;
+            _questionText = "Your question is here";
 
+            _ea.GetEvent<GameControlEvent>().Subscribe(HandleGameControlEvent);
         }
 
         public string QuestionText
@@ -26,7 +34,56 @@ namespace FlashCardGame.Modules.Game.ViewModels
             set { SetProperty(ref _answerText, value); }
         }
 
+        public DelegateCommand CheckAnswerCommand => _checkAnswerCommand ?? (_checkAnswerCommand = new DelegateCommand(ExecuteCheckAnswer));
+
+        public DelegateCommand SubmitAnswerCommand => _submitAnswerCommand ?? (_submitAnswerCommand = new DelegateCommand(ExecuteSubmitAnswer));
+
+        public DelegateCommand NextQuestionCommand => _nextQuestionCommand ?? (_nextQuestionCommand = new DelegateCommand(ExecuteNextQuestion));
+
+        private readonly IQuestionGenerator _questionGenerator;
+
+        private readonly IEventAggregator _ea;
+
+        private DelegateCommand _checkAnswerCommand;
+
+        private DelegateCommand _submitAnswerCommand;
+
+        private DelegateCommand _nextQuestionCommand;
+
         private string _questionText;
+
         private string _answerText;
+
+        private GameQuestion _question;
+
+        private void HandleGameControlEvent(string message)
+        {
+            if (message == GameControlMessage.Start)
+            {
+                ExecuteNextQuestion();
+            }
+            else if (message == GameControlMessage.Stop)
+            {
+            }
+        }
+
+        private void ExecuteCheckAnswer()
+        {
+            int score = _question.CorrectAnswer == _answerText ? 1 : -1;
+            _ea.GetEvent<UpdateScoreEvent>().Publish(score);
+        }
+
+        private void ExecuteSubmitAnswer()
+        {
+            ExecuteCheckAnswer();
+            ExecuteNextQuestion();
+        }
+
+        private void ExecuteNextQuestion()
+        {
+            _question = _questionGenerator.GenerateQuestion();
+            QuestionText = _question.Question;
+            AnswerText = "";
+        }
     }
 }

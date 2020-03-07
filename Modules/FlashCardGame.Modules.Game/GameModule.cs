@@ -25,6 +25,8 @@ namespace FlashCardGame.Modules.Game
 
             _regionManager.RegisterViewWithRegion("ContentRegion", typeof(GameView));
             _regionManager.RegisterViewWithRegion("QuestionRegion", typeof(QuestionView));
+            _regionManager.RegisterViewWithRegion("ScoreBoardRegion", typeof(ScoreBoardView));
+            _regionManager.RegisterViewWithRegion("TimingRegion", typeof(TimingView));
         }
 
         private readonly IRegionManager _regionManager;

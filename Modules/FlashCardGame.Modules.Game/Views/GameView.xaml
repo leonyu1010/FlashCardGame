@@ -5,23 +5,29 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="7*" />
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="ControlButtons" Grid.Row="0" Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Horizontal">
             <Button Command="{Binding StartNewGameCommand}" Margin="10, 10, 10, 10" Content="Start New Game" />
             <CheckBox IsChecked="{Binding Path=IsZeroIncluded}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                      materialDesign:HintAssist.HelperText="Select one Operator" 
-                      ItemsSource="{Binding Operators}" 
-                      SelectedItem="{Binding SelectedOperator}" 
+                      materialDesign:HintAssist.HelperText="Select one Operator"
+                      ItemsSource="{Binding Operators}"
+                      SelectedItem="{Binding SelectedOperator}"
                       FontSize="18" Margin="10, 10, 10, 10" />
         </StackPanel>
-        <StackPanel x:Name="GamePanel" Grid.Row="1" Orientation="Horizontal">
+        <StackPanel x:Name="QuestionPanel" Grid.Column="1" Orientation="Horizontal">
             <ContentControl prism:RegionManager.RegionName="QuestionRegion" />
-            <materialDesign:PackIcon Kind="ProgressClock" Height="32" Width="32" />
-            <Label Content="{Binding TimeLeft}" />
+        </StackPanel>
+        <StackPanel x:Name="ScorePanel" Grid.Column="2" Orientation="Horizontal">
+            <ContentControl prism:RegionManager.RegionName="ScoreBoardRegion" />
+        </StackPanel>
+        <StackPanel x:Name="TimingPanel" Grid.Column="3" Orientation="Horizontal">
+            <ContentControl prism:RegionManager.RegionName="TimingRegion" />
         </StackPanel>
     </Grid>
 </UserControl>

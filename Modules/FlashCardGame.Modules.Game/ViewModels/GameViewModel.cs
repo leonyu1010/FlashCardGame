@@ -1,7 +1,10 @@
 ﻿using FlashCardGame.Core;
+using FlashCardGame.Core.Constants;
+using FlashCardGame.Core.Events;
 using FlashCardGame.Model;
 using FlashCardGame.Modules.Game.Service;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,12 +15,13 @@ namespace FlashCardGame.Modules.Game.ViewModels
 {
     public class GameViewModel : BindableBase
     {
-        public GameViewModel(IQuestionGenerator questionGenerator, IGameConfig gameConfig)
+        public GameViewModel(IGameConfig gameConfig, IEventAggregator ea)
         {
+            _ea = ea;
             _gameConfig = gameConfig;
 
-            _questionGenerator = questionGenerator;
-            _isZeroIncluded = false;
+            _isZeroIncluded = true;
+            _gameConfig.SelectedOperator = new OperatorClass(Operator.Multiply);
             //Operators = new List<string>
             //{
             //    MaterialDesignIcons.Plus,
@@ -25,26 +29,15 @@ namespace FlashCardGame.Modules.Game.ViewModels
             //    MaterialDesignIcons.Multiplication,
             //    MaterialDesignIcons.Division
             //};
-
-            Operators = new ObservableCollection<string>
-            {
-                Operator.Plus.ToSign(),
-                Operator.Minus.ToSign(),
-                Operator.Multiply.ToSign(),
-                Operator.Divide.ToSign(),
-                Operator.Random.ToSign(),
-            };
         }
 
-        public ObservableCollection<string> Operators { get; private set; }
-
-        public string SelectedOperator
+        public IOperatorClass SelectedOperator
         {
             get { return _selectedOperator; }
             set
             {
                 SetProperty(ref _selectedOperator, value);
-                _gameConfig.SelectedOperator = OperatorExtensions.FromSign(_selectedOperator);
+                _gameConfig.SelectedOperator = _selectedOperator;
             }
         }
 
@@ -61,15 +54,16 @@ namespace FlashCardGame.Modules.Game.ViewModels
             }
         }
 
+        private readonly IEventAggregator _ea;
         private readonly IGameConfig _gameConfig;
-        private readonly IQuestionGenerator _questionGenerator;
-        private string _selectedOperator;
+
+        private IOperatorClass _selectedOperator;
         private DelegateCommand _startNewGameCommand;
         private bool _isZeroIncluded;
 
         private void ExecuteNewGame()
         {
-            var op = OperatorExtensions.FromSign(SelectedOperator);
+            _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Start);
         }
     }
 }

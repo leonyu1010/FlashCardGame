@@ -2,6 +2,7 @@
 using FlashCardGame.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FlashCardGame.Modules.Game.Service
@@ -12,53 +13,92 @@ namespace FlashCardGame.Modules.Game.Service
         {
             _rng = rng;
             _gameConfig = gameConfig;
+            Reset();
         }
 
         public GameQuestion GenerateQuestion()
         {
-            int value1 = GetFirstNumber();
-            int value2 = GetSecondNumber();
+            NumberPair pair;
+
+            while (true)
+            {
+                pair = _pool[_indexOfNextPair];
+                UpdateIndexOfNextPair();
+                if (_gameConfig.SelectedOperator.IsValid(pair))
+                {
+                    break;
+                }
+            }
 
             return new GameQuestion()
             {
-                Question = $"{value1} {_gameConfig.SelectedOperator.ToSign()} {value2}",
-                CorrectAnswer = Calculate(value1, value2, _gameConfig.SelectedOperator)
+                Question = $"{pair.Number1} {_gameConfig.SelectedOperator.ToSign()} {pair.Number2}",
+                CorrectAnswer = _gameConfig.SelectedOperator.Calculate(pair).ToString()
             };
         }
 
+        public void Reset()
+        {
+            CreatePoolOfNumberPair();
+            ShufflePool();
+            _indexOfNextPair = 0;
+        }
+
         private readonly IGameConfig _gameConfig;
+
         private readonly IRandomNumberGenerator _rng;
-        private string _newQuestion;
 
-        private int GetSecondNumber()
-        {
-            return _rng.Number;
-        }
+        private List<NumberPair> _pool;
 
-        private int GetFirstNumber()
-        {
-            return _rng.Number;
-        }
+        private int _indexOfNextPair;
 
-        private string Calculate(int value1, int value2, Operator currentOperator)
+        private void CreatePoolOfNumberPair()
         {
-            switch (currentOperator)
+            _pool = new List<NumberPair>();
+            int min = _gameConfig.MinValue;
+            int max = _gameConfig.MaxValue;
+
+            foreach (var number1 in Enumerable.Range(min, max))
             {
-                case Operator.Multiply:
-                    return (value1 * value2).ToString();
-
-                default:
-                    throw new Exception("unknow Operator to Calculate");
+                foreach (var number2 in Enumerable.Range(min, max))
+                {
+                    _pool.Add(new NumberPair { Number1 = number1, Number2 = number2 });
+                }
             }
         }
 
-        //                    if (_op == Operator.Random)
-        //            {
-        //                GetRandomOperator();
-        //}
-        private Operator GetRandomOperator()
+        private void UpdateIndexOfNextPair()
         {
-            return (Operator)_rng.GetOneNumber(0, (int)Operator.Random - 1);
+            _indexOfNextPair++;
+            if (_indexOfNextPair == _pool.Count)
+            {
+                _indexOfNextPair = 0;
+            }
         }
+
+        private void ShufflePool()
+        {
+            int n = _pool.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _rng.GetOneNumber(0, n + 1);
+                var value = _pool[k];
+                _pool[k] = _pool[n];
+                _pool[n] = value;
+            }
+        }
+
+        //private NumberPair GetOnePair()
+        //{
+        //    int randIndexBound = _pool.Count - _generatedCount;
+        //    int lastIndexToSwap = randIndexBound - 1;
+        //    int randIndex = _rng.GetOneNumber(0, randIndexBound);
+        //    var pair = _pool[randIndex];
+        //    _pool[randIndex] = _pool[lastIndexToSwap];
+        //    _pool[lastIndexToSwap] = pair;
+        //    _generatedCount++;
+        //    return pair;
+        //}
     }
 }

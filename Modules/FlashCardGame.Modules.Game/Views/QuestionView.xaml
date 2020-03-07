@@ -13,6 +13,9 @@
                          materialDesign:HintAssist.Hint="Your Answer"
                          Margin="0 0 0 0" VerticalAlignment="Bottom"
                          Text="{Binding AnswerText, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Command="{Binding CheckAnswerCommand}" Margin="10, 10, 10, 10" Content="Check" />
+                <Button Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit" />
+                <Button Command="{Binding NextQuestionCommand}" Margin="10, 10, 10, 10" Content="Next" />
             </StackPanel>
         </materialDesign:Card>
     </Grid>
