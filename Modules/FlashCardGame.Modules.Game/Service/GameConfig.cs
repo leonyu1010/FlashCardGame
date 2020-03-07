@@ -16,7 +16,7 @@ namespace FlashCardGame.Modules.Game.Service
             MaxValue = 12;
         }
 
-        public IOperatorClass SelectedOperator { get; set; }
+        public IArithmeticOp SelectedOperator { get; set; }
         public TimeSpan GameDuration { get; set; }
         public int MinValue { get; set; }
         public int MaxValue { get; set; }

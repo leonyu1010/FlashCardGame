@@ -4,9 +4,9 @@ using System.Text;
 
 namespace FlashCardGame.Core
 {
-    public class OperatorClass : IOperatorClass
+    public class ArithmeticOp : IArithmeticOp
     {
-        public OperatorClass(Operator op)
+        public ArithmeticOp(Operator op)
         {
             _op = op;
         }
@@ -70,6 +70,16 @@ namespace FlashCardGame.Core
             return true;
         }
 
-        private Operator _op;
+        public double Divide(double numerator, double denominator)
+        {
+            if (Math.Abs(denominator) < eps)
+            {
+                throw new DivideByZeroException();
+            }
+            return numerator / denominator;
+        }
+
+        private readonly double eps = 1e-6;
+        private readonly Operator _op;
     }
 }

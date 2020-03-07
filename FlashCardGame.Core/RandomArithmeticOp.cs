@@ -4,11 +4,11 @@ using System.Text;
 
 namespace FlashCardGame.Core
 {
-    public class RandomOperatorClass : IOperatorClass
+    public class RandomArithmeticOp : IArithmeticOp
     {
-        public RandomOperatorClass(IRandomNumberGenerator rng)
+        public RandomArithmeticOp(IRandomNumberGenerator rng)
         {
-            _op = new OperatorClass((Operator)rng.GetOneNumber(0, 4));
+            _op = new ArithmeticOp((Operator)rng.GetOneNumber(0, 4));
         }
 
         public string ToSign()
@@ -26,7 +26,11 @@ namespace FlashCardGame.Core
             return _op.IsValid(pair);
         }
 
-        private IRandomNumberGenerator _rng;
-        private OperatorClass _op;
+        public double Divide(double numerator, double denominator)
+        {
+            return _op.Divide(numerator, denominator);
+        }
+
+        private readonly ArithmeticOp _op;
     }
 }

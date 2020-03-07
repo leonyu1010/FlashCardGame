@@ -14,14 +14,14 @@ namespace FlashCardGame.Modules.Game.Service
             _rng = rng;
         }
 
-        public IOperatorClass Create(int index)
+        public IArithmeticOp Create(int index)
         {
-            return new OperatorClass((Operator)index);
+            return new ArithmeticOp((Operator)index);
         }
 
-        public IOperatorClass CreateRand()
+        public IArithmeticOp CreateRand()
         {
-            return new RandomOperatorClass(_rng);
+            return new RandomArithmeticOp(_rng);
         }
 
         private readonly IRandomNumberGenerator _rng;

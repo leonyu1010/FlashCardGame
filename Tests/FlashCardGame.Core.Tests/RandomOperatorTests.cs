@@ -20,7 +20,7 @@ namespace FlashCardGame.Core.Tests
             rngMock.Setup(rngMock => rngMock.GetOneNumber(0, 4)).Returns(operatorIndex);
 
             //Act
-            var randOp = new RandomOperatorClass(rngMock.Object);
+            var randOp = new RandomArithmeticOp(rngMock.Object);
             var sign = randOp.ToSign();
 
             //Assert
@@ -40,7 +40,7 @@ namespace FlashCardGame.Core.Tests
             rngMock.Setup(rngMock => rngMock.GetOneNumber(0, 4)).Returns((int)op);
 
             //Act
-            var randOp = new RandomOperatorClass(rngMock.Object);
+            var randOp = new RandomArithmeticOp(rngMock.Object);
             var actual = randOp.Calculate(new NumberPair() { Number1 = number1, Number2 = number2 });
 
             //Assert
@@ -55,7 +55,7 @@ namespace FlashCardGame.Core.Tests
             rngMock.Setup(rngMock => rngMock.GetOneNumber(0, 4)).Returns((int)Operator.Divide);
 
             //Act
-            var randOp = new RandomOperatorClass(rngMock.Object);
+            var randOp = new RandomArithmeticOp(rngMock.Object);
 
             //Assert
             Assert.Throws<DivideByZeroException>(() => randOp.Calculate(new NumberPair() { Number1 = 1, Number2 = 0 }));
@@ -69,7 +69,7 @@ namespace FlashCardGame.Core.Tests
             rngMock.Setup(rngMock => rngMock.GetOneNumber(0, 4)).Returns(4);
 
             //Act
-            var randOp = new RandomOperatorClass(rngMock.Object);
+            var randOp = new RandomArithmeticOp(rngMock.Object);
             //Assert
             var ex = Assert.Throws<Exception>(() => randOp.ToSign());
             Assert.Equal("unexpected operator", ex.Message);

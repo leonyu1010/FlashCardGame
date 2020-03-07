@@ -21,7 +21,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             _gameConfig = gameConfig;
 
             _isZeroIncluded = true;
-            _gameConfig.SelectedOperator = new OperatorClass(Operator.Multiply);
+            _gameConfig.SelectedOperator = new ArithmeticOp(Operator.Multiply);
             //Operators = new List<string>
             //{
             //    MaterialDesignIcons.Plus,
@@ -31,7 +31,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             //};
         }
 
-        public IOperatorClass SelectedOperator
+        public IArithmeticOp SelectedOperator
         {
             get { return _selectedOperator; }
             set
@@ -57,7 +57,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private readonly IEventAggregator _ea;
         private readonly IGameConfig _gameConfig;
 
-        private IOperatorClass _selectedOperator;
+        private IArithmeticOp _selectedOperator;
         private DelegateCommand _startNewGameCommand;
         private bool _isZeroIncluded;
 
