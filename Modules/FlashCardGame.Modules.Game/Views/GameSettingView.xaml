@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <materialDesign:Card Background="LightBlue" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
+    <materialDesign:Card Background="LightBlue" VerticalAlignment="Top" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="10" Margin="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
