@@ -38,19 +38,14 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
                     <Button Grid.Row="0" Grid.Column="0" Command="{Binding StartNewGameCommand}" Margin="10, 10, 10, 10" Content="Start New Game" />
-                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit Answer" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Row="1" Grid.Column="0" Command="{Binding CheckAnswerCommand}" Margin="10, 10, 10, 10" Content="Check Answer" />
+                    <Button Grid.Row="1" Grid.Column="0" Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit Answer" />
                     <Button Grid.Row="1" Grid.Column="1" Command="{Binding NextQuestionCommand}" Margin="10, 10, 10, 10" Content="Next Question" />
                 </Grid>
             </Grid>

@@ -29,7 +29,6 @@ namespace FlashCardGame.Modules.Game.Tests
             QuestionViewModel sut = CreateQuestionViewModel();
 
             Assert.False(sut.SubmitAnswerCommand.CanExecute());
-            Assert.False(sut.CheckAnswerCommand.CanExecute());
             Assert.False(sut.NextQuestionCommand.CanExecute());
         }
 
@@ -54,7 +53,6 @@ namespace FlashCardGame.Modules.Game.Tests
             // HandleGameControlEvent enables these three buttons.
             // TODO need to setup eventMock to have callback to HandleGameControlEvent
             //Assert.True(sut.SubmitAnswerCommand.CanExecute());
-            //Assert.True(sut.CheckAnswerCommand.CanExecute());
             //Assert.True(sut.NextQuestionCommand.CanExecute());
         }
 
@@ -63,13 +61,13 @@ namespace FlashCardGame.Modules.Game.Tests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("   ")]
-        public void CheckAnswer_GradeEmptyAnswer(string answer)
+        public void SubmitAnswer_GradeEmptyAnswer(string answer)
         {
             QuestionViewModel sut = CreateQuestionViewModel();
             sut.Answer = answer;
             sut.IsGameRunning = true;
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(-1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
@@ -77,23 +75,23 @@ namespace FlashCardGame.Modules.Game.Tests
 
         [Theory]
         [InlineData("unexpected")]
-        public void CheckAnswer_GradeNonNumericAnswer_ThrowFormatException(string answer)
+        public void SubmitAnswer_GradeNonNumericAnswer_ThrowFormatException(string answer)
         {
             QuestionViewModel sut = CreateQuestionViewModel();
             sut.Answer = answer;
             sut.IsGameRunning = true;
 
-            Assert.Throws<FormatException>(() => sut.CheckAnswerCommand.Execute());
+            Assert.Throws<FormatException>(() => sut.SubmitAnswerCommand.Execute());
         }
 
         [Theory]
         [InlineData("1", 1, 1, Operator.Multiplication)]
         [InlineData("-1", 0, 1, Operator.Minus)]
         [InlineData("0.5", 1, 2, Operator.Division)]
-        public void CheckAnswer_GradeCorrectAnsower(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_GradeCorrectAnsower(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
             _updateScoreEvent.Verify(e => e.Publish(1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(true), Times.Exactly(1));
         }
@@ -104,11 +102,11 @@ namespace FlashCardGame.Modules.Game.Tests
         [InlineData("-1.0", 0, 1, Operator.Minus)]
         [InlineData("-1.00", 0, 1, Operator.Minus)]
         [InlineData("0.33", 1, 3, Operator.Division)]
-        public void CheckAnswer_GradeCorrectAnswer_WithDecimal(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_GradeCorrectAnswer_WithDecimal(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(true), Times.Exactly(1));
@@ -117,11 +115,11 @@ namespace FlashCardGame.Modules.Game.Tests
         [Theory]
         [InlineData("0.32", 1, 3, Operator.Division)]
         [InlineData("0.34", 1, 3, Operator.Division)]
-        public void CheckAnswer_GradeAnswer_WithinTolerance(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_GradeAnswer_WithinTolerance(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(true), Times.Exactly(1));
@@ -130,18 +128,18 @@ namespace FlashCardGame.Modules.Game.Tests
         [Theory]
         [InlineData("0.31", 1, 3, Operator.Division)]
         [InlineData("0.35", 1, 3, Operator.Division)]
-        public void CheckAnswer_GradeAnswer_OutsideTolerance(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_GradeAnswer_OutsideTolerance(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(-1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
         }
 
         [Fact]
-        public void CheckAnswer_GradeCorrectAnswer_SmallerThanTolerance()
+        public void SubmitAnswer_GradeCorrectAnswer_SmallerThanTolerance()
         {
             int number1 = 1;
             int number2 = 3;
@@ -151,14 +149,14 @@ namespace FlashCardGame.Modules.Game.Tests
 
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, Operator.Division);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(true), Times.Exactly(1));
         }
 
         [Fact]
-        public void CheckAnswer_GradeWrongAnswer_EqualTolerance()
+        public void SubmitAnswer_GradeWrongAnswer_EqualTolerance()
         {
             int number1 = 1;
             int number2 = 3;
@@ -169,14 +167,14 @@ namespace FlashCardGame.Modules.Game.Tests
             //TODO test failed due to F2 format the answer to 0.32. Given tolerance = 0.15,  it is graded correct.
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, Operator.Division);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(-1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
         }
 
         [Fact]
-        public void CheckAnswer_GradeWrongAnswer_BiggerThanTolerance()
+        public void SubmitAnswer_GradeWrongAnswer_BiggerThanTolerance()
         {
             int number1 = 1;
             int number2 = 3;
@@ -187,7 +185,7 @@ namespace FlashCardGame.Modules.Game.Tests
             //TODO test failed due to F2 format the answer to 0.32. Given tolerance = 0.15,  it is graded correct.
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, Operator.Division);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(-1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
@@ -195,11 +193,11 @@ namespace FlashCardGame.Modules.Game.Tests
 
         [Theory]
         [InlineData("1", 1, 3, Operator.Division)]
-        public void CheckAnswer_GradeWrongAnswer(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_GradeWrongAnswer(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
 
-            sut.CheckAnswerCommand.Execute();
+            sut.SubmitAnswerCommand.Execute();
 
             _updateScoreEvent.Verify(e => e.Publish(-1), Times.Exactly(1));
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
@@ -207,11 +205,32 @@ namespace FlashCardGame.Modules.Game.Tests
 
         [Theory]
         [InlineData("1", 1, 0, Operator.Division)]
-        public void CheckAnswer_DivideByZero(string answer, int number1, int number2, Operator op)
+        public void SubmitAnswer_DivideByZero(string answer, int number1, int number2, Operator op)
         {
             QuestionViewModel sut = CreateQuestionViewModelForGrading(answer, number1, number2, op);
 
-            Assert.Throws<DivideByZeroException>(() => sut.CheckAnswerCommand.Execute());
+            Assert.Throws<DivideByZeroException>(() => sut.SubmitAnswerCommand.Execute());
+        }
+
+        [Fact]
+        public void NextQuestion_ShouldNotGradeAnswer()
+        {
+            var settingMock = Helper.SetupConfigMock(Operator.Division, 0, 12);
+            var question = new GameQuestion
+            {
+                Pair = new NumberPair { Number1 = 1, Number2 = 1 },
+                OpCtx = settingMock.Object.Operators[0]
+            };
+            _qGenMock.Setup(q => q.GenerateQuestion()).Returns(question);
+
+            var sut = CreateQuestionViewModel();
+
+            sut.IsGameRunning = true;
+
+            sut.NextQuestionCommand.Execute();
+
+            Assert.Equal(question, sut.Question);
+            Assert.Equal(string.Empty, sut.Answer);
         }
 
         private Mock<IQuestionGenerator> _qGenMock = new Mock<IQuestionGenerator>();
@@ -247,6 +266,7 @@ namespace FlashCardGame.Modules.Game.Tests
             _eaMock.Setup(ea => ea.GetEvent<GameControlEvent>()).Returns(_gameControlEventMock.Object);
             _eaMock.Setup(ea => ea.GetEvent<UpdateScoreEvent>()).Returns(_updateScoreEvent.Object);
             _eaMock.Setup(ea => ea.GetEvent<SendAnswerResultEvent>()).Returns(_sendAnswerResultEvent.Object);
+
             var sut = new QuestionViewModel(_qGenMock.Object, _eaMock.Object);
             return sut;
         }

@@ -22,7 +22,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
             CanStartGame = true;
             StartNewGameCommand = new DelegateCommand(ExecuteNewGame).ObservesCanExecute(() => CanStartGame);
-            CheckAnswerCommand = new DelegateCommand(ExecuteCheckAnswer).ObservesCanExecute(() => IsGameRunning);
+            //CheckAnswerCommand = new DelegateCommand(ExecuteCheckAnswer).ObservesCanExecute(() => IsGameRunning);
             SubmitAnswerCommand = new DelegateCommand(ExecuteSubmitAnswer).ObservesCanExecute(() => IsGameRunning);
             NextQuestionCommand = new DelegateCommand(ExecuteNextQuestion).ObservesCanExecute(() => IsGameRunning);
         }
@@ -64,8 +64,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
         }
 
         public DelegateCommand StartNewGameCommand { get; private set; }
-        public DelegateCommand CheckAnswerCommand { get; private set; }
+
+        //public DelegateCommand CheckAnswerCommand { get; private set; }
         public DelegateCommand SubmitAnswerCommand { get; private set; }
+
         public DelegateCommand NextQuestionCommand { get; private set; }
 
         private readonly IQuestionGenerator _questionGenerator;
