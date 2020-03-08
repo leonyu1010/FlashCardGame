@@ -14,6 +14,6 @@ namespace FlashCardGame.UI.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        private string _title = "Illumina Flash Card Game";
+        private string _title = "Flash Card Game";
     }
 }

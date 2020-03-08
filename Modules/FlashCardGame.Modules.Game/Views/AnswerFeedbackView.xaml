@@ -4,23 +4,22 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
     <materialDesign:Card Background="LightGreen" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
-        <Grid>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="8*" />
             </Grid.RowDefinitions>
-            <materialDesign:PackIcon Kind="NoticeBoard" Grid.Row="0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <materialDesign:PackIcon Kind="NoticeBoard" Grid.Row="0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" />
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="6*" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="{Binding Feedback}" Height="100" Width="100" FontSize="18" Margin="10, 10, 10, 10"/>
-                <materialDesign:PackIcon Kind="{Binding Icon}" Height="{Binding IconHeight}" Width="{Binding IconWidth}" Grid.Row="1" Margin="10, 10, 10, 10" />
-              
+                <Label Grid.Row="0" Content="{Binding Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="10, 10, 10, 10" />
+                <materialDesign:PackIcon Kind="{Binding Icon}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding IconHeight}" Width="{Binding IconWidth}" Grid.Row="1" Margin="10, 10, 10, 10" />
             </Grid>
-
         </Grid>
     </materialDesign:Card>
 </UserControl>

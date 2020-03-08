@@ -4,9 +4,9 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    
-    <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center"  Width="800" Height="800" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
-        <Grid Background="AliceBlue">
+
+    <materialDesign:Card Background="Beige"  VerticalAlignment="Center" HorizontalAlignment="Center"  materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
