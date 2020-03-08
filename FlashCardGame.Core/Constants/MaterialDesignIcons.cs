@@ -12,5 +12,7 @@ namespace FlashCardGame.Core
         public const string Multiplication = "Multiplication";
         public const string Tick = "ThumbsUpOutline"; //"Tick";
         public const string Error = "SmileySadOutline"; //"Error";
+        public const string PointingLeft = "HandPointingLeft";
+        public const string PointingDown = "HandPointingDown";
     }
 }

@@ -16,10 +16,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             _questionGenerator = questionGenerator;
             _ea = ea;
             _ea.GetEvent<GameControlEvent>().Subscribe(HandleGameControlEvent);
-
-            IconHeight = 1;
-            IconWidth = 1;
-
+            Icon = MaterialDesignIcons.PointingDown;
             CanStartGame = true;
             StartNewGameCommand = new DelegateCommand(ExecuteNewGame).ObservesCanExecute(() => CanStartGame);
             //CheckAnswerCommand = new DelegateCommand(ExecuteCheckAnswer).ObservesCanExecute(() => IsGameRunning);
@@ -27,22 +24,16 @@ namespace FlashCardGame.Modules.Game.ViewModels
             NextQuestionCommand = new DelegateCommand(ExecuteNextQuestion).ObservesCanExecute(() => IsGameRunning);
         }
 
+        public string Icon
+        {
+            get { return _icon; }
+            set { SetProperty(ref _icon, value); }
+        }
+
         public GameQuestion Question
         {
             get { return _question; }
             set { SetProperty(ref _question, value); }
-        }
-
-        public int IconWidth
-        {
-            get { return _iconWidth; }
-            set { SetProperty(ref _iconWidth, value); }
-        }
-
-        public int IconHeight
-        {
-            get { return _iconHeight; }
-            set { SetProperty(ref _iconHeight, value); }
         }
 
         public string Answer
@@ -74,8 +65,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private readonly IEventAggregator _ea;
         private GameQuestion _question;
         private string _answer;
-        private int _iconHeight;
-        private int _iconWidth;
+        private string _icon;
         private bool _isGameRunning;
         private bool _canStartGame;
 
@@ -108,9 +98,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private void ExecuteNextQuestion()
         {
             Question = _questionGenerator.GenerateQuestion();
+            Icon = Question.OpCtx.Icon;
             Answer = "";
-            IconHeight = 20;
-            IconWidth = 20;
         }
 
         private void HandleGameControlEvent(string message)
