@@ -215,21 +215,13 @@ namespace FlashCardGame.Modules.Game.Tests
         [Fact]
         public void NextQuestion_ShouldNotGradeAnswer()
         {
-            var settingMock = Helper.SetupConfigMock(Operator.Division, 0, 12);
-            var question = new GameQuestion
-            {
-                Pair = new NumberPair { Number1 = 1, Number2 = 1 },
-                OpCtx = settingMock.Object.Operators[0]
-            };
-            _qGenMock.Setup(q => q.GenerateQuestion()).Returns(question);
-
             var sut = CreateQuestionViewModel();
 
             sut.IsGameRunning = true;
 
             sut.NextQuestionCommand.Execute();
 
-            Assert.Equal(question, sut.Question);
+            Assert.Equal(_question, sut.Question);
             Assert.Equal(string.Empty, sut.Answer);
         }
 
@@ -242,6 +234,8 @@ namespace FlashCardGame.Modules.Game.Tests
         private Mock<UpdateScoreEvent> _updateScoreEvent = new Mock<UpdateScoreEvent>();
 
         private Mock<SendAnswerResultEvent> _sendAnswerResultEvent = new Mock<SendAnswerResultEvent>();
+
+        private GameQuestion _question;
 
         private QuestionViewModel CreateQuestionViewModelForGrading(string answer, int number1, int number2, Operator op)
         {
@@ -263,9 +257,18 @@ namespace FlashCardGame.Modules.Game.Tests
 
         private QuestionViewModel CreateQuestionViewModel()
         {
+            var settingMock = Helper.SetupConfigMock(Operator.Division, 0, 12);
+            _question = new GameQuestion
+            {
+                Pair = new NumberPair { Number1 = 1, Number2 = 1 },
+                OpCtx = settingMock.Object.Operators[0]
+            };
+
             _eaMock.Setup(ea => ea.GetEvent<GameControlEvent>()).Returns(_gameControlEventMock.Object);
             _eaMock.Setup(ea => ea.GetEvent<UpdateScoreEvent>()).Returns(_updateScoreEvent.Object);
             _eaMock.Setup(ea => ea.GetEvent<SendAnswerResultEvent>()).Returns(_sendAnswerResultEvent.Object);
+
+            _qGenMock.Setup(q => q.GenerateQuestion()).Returns(_question);
 
             var sut = new QuestionViewModel(_qGenMock.Object, _eaMock.Object);
             return sut;
