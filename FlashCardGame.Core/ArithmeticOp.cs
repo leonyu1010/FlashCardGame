@@ -27,10 +27,10 @@ namespace FlashCardGame.Core
                 case Operator.Minus:
                     return number1 - number2;
 
-                case Operator.Multiply:
+                case Operator.Multiplication:
                     return number1 * number2;
 
-                case Operator.Divide:
+                case Operator.Division:
                     {
                         if (number2 == 0)
                         {
@@ -45,7 +45,7 @@ namespace FlashCardGame.Core
 
         public bool IsValid(NumberPair pair)
         {
-            if (Name == Operator.Divide && pair.Number2 == 0)
+            if (Name == Operator.Division && pair.Number2 == 0)
             {
                 return false;
             }
@@ -54,6 +54,11 @@ namespace FlashCardGame.Core
 
         public double Divide(double numerator, double denominator)
         {
+            if (Name != Operator.Division)
+            {
+                throw new Exception("unexpected operation");
+            }
+
             if (Math.Abs(denominator) < AppConstants.Tolerance)
             {
                 throw new DivideByZeroException();

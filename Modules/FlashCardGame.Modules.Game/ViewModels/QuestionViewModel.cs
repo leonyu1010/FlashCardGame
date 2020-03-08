@@ -21,13 +21,9 @@ namespace FlashCardGame.Modules.Game.ViewModels
             IconWidth = 1;
 
             CanStartGame = true;
-
             StartNewGameCommand = new DelegateCommand(ExecuteNewGame).ObservesCanExecute(() => CanStartGame);
-
             CheckAnswerCommand = new DelegateCommand(ExecuteCheckAnswer).ObservesCanExecute(() => IsGameRunning);
-
             SubmitAnswerCommand = new DelegateCommand(ExecuteSubmitAnswer).ObservesCanExecute(() => IsGameRunning);
-
             NextQuestionCommand = new DelegateCommand(ExecuteNextQuestion).ObservesCanExecute(() => IsGameRunning);
         }
 
@@ -49,10 +45,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
             set { SetProperty(ref _iconHeight, value); }
         }
 
-        public string AnswerText
+        public string Answer
         {
-            get { return _answerText; }
-            set { SetProperty(ref _answerText, value); }
+            get { return _answer; }
+            set { SetProperty(ref _answer, value); }
         }
 
         public bool IsGameRunning
@@ -74,9 +70,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private readonly IQuestionGenerator _questionGenerator;
         private readonly IEventAggregator _ea;
-
         private GameQuestion _question;
-        private string _answerText;
+        private string _answer;
         private int _iconHeight;
         private int _iconWidth;
         private bool _isGameRunning;
@@ -84,19 +79,16 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void ExecuteNewGame()
         {
-            _questionGenerator.Reset();
-
             _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Start);
-
             CanStartGame = false;
         }
 
         private void ExecuteCheckAnswer()
         {
             bool correct = false;
-            if (!string.IsNullOrWhiteSpace(AnswerText))
+            if (!string.IsNullOrWhiteSpace(Answer))
             {
-                double answer = double.Parse(AnswerText);
+                double answer = double.Parse(Answer);
                 double correctAnswer = Question.OpCtx.Handler.Calculate(Question.Pair);
                 correct = Math.Abs(correctAnswer - answer) < AppConstants.Tolerance;
             }
@@ -114,7 +106,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
         private void ExecuteNextQuestion()
         {
             Question = _questionGenerator.GenerateQuestion();
-            AnswerText = "";
+            Answer = "";
             IconHeight = 20;
             IconWidth = 20;
         }
@@ -126,7 +118,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 IsGameRunning = true;
                 ExecuteNextQuestion();
             }
-            else if (message == GameControlMessage.Stop)
+            else if (message == GameControlMessage.GameTimeout)
             {
                 IsGameRunning = false;
                 CanStartGame = true;

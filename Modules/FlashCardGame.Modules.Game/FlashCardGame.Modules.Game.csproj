@@ -65,7 +65,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Service\FileLogger.cs" />
-    <Compile Include="Service\GameConfig.cs" />
+    <Compile Include="Service\GameSetting.cs" />
     <Compile Include="Service\IGameConfig.cs" />
     <Compile Include="Service\IQuestionGenerator.cs" />
     <Compile Include="Service\QuestionGenerator.cs" />

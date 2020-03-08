@@ -7,12 +7,12 @@
     <materialDesign:Card Background="LightBlue" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
         <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Vertical">
             <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Game Setting</TextBlock>
-            <CheckBox IsChecked="{Binding Path=IsZeroIncluded}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
-            <CheckBox IsChecked="{Binding Path=UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}">Use Random Arithmetic Operation</CheckBox>
+            <CheckBox IsChecked="{Binding IncludeZero}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
+            <CheckBox IsChecked="{Binding UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}">Use Random Arithmetic Operation</CheckBox>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       materialDesign:HintAssist.HelperText="Select one Operator"
-                      ItemsSource="{Binding Path=Operators}"
-                      SelectedItem="{Binding Path=SelectedOp}"
+                      ItemsSource="{Binding Operators}"
+                      SelectedItem="{Binding SelectedOp}"
                       FontSize="18" Margin="10, 10, 10, 10">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

@@ -45,7 +45,7 @@ namespace FlashCardGame.UI
         private void Application_DispatcherUnhandledException(object sender,
                             System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("Unexpected error occured. Please inform the admin."
+            MessageBox.Show("Unexpected error occured."
               + Environment.NewLine + e.Exception.ToString(), "Unexpected error");
 
             e.Handled = true;

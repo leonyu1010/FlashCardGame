@@ -1,11 +1,7 @@
 ﻿using FlashCardGame.Core.Constants;
 using FlashCardGame.Core.Events;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FlashCardGame.Modules.Game.ViewModels
 {
@@ -37,11 +33,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
         }
 
         private readonly IEventAggregator _ea;
-
         private int _totalScore;
-
         private int _correctCount;
-
         private int _wrongCount;
 
         private void HandleGameControlMessage(string message)

@@ -19,8 +19,9 @@ namespace FlashCardGame.Modules.Game
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IGameConfig, GameConfig>();
+            containerRegistry.RegisterSingleton<IGameSetting, GameSetting>();
             containerRegistry.Register<IQuestionGenerator, QuestionGenerator>();
+
             _regionManager.RegisterViewWithRegion("ContentRegion", typeof(GameView));
             _regionManager.RegisterViewWithRegion("SettingRegion", typeof(GameSettingView));
             _regionManager.RegisterViewWithRegion("QuestionRegion", typeof(QuestionView));

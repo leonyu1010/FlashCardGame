@@ -16,7 +16,7 @@ namespace FlashCardGame.Modules.Game.Tests
         {
             //Arrange
 
-            Mock<IGameConfig> configMock = SetupConfigMock(operatorIndex);
+            Mock<IGameSetting> configMock = SetupConfigMock(operatorIndex);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
@@ -36,7 +36,7 @@ namespace FlashCardGame.Modules.Game.Tests
         public void QuestionGeneratorTests_CreateValidPairPool_ForDivision()
         {
             //Arrange
-            var configMock = SetupConfigMock((int)Operator.Divide);
+            var configMock = SetupConfigMock((int)Operator.Division);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
@@ -51,7 +51,7 @@ namespace FlashCardGame.Modules.Game.Tests
                 var denominator = question.Pair.Number2;
                 if (denominator == 0)
                 {
-                    divideByZero++;
+                    ++divideByZero;
                 }
 
                 questions.Add(question.ToString());
@@ -62,11 +62,11 @@ namespace FlashCardGame.Modules.Game.Tests
             Assert.Equal(0, divideByZero);
         }
 
-        private static Mock<IGameConfig> SetupConfigMock(int operatorIndex)
+        private static Mock<IGameSetting> SetupConfigMock(int operatorIndex)
         {
-            var configMock = new Mock<IGameConfig>();
-            configMock.Setup(configMock => configMock.MinValue).Returns(0);
-            configMock.Setup(configMock => configMock.MaxValue).Returns(12);
+            var configMock = new Mock<IGameSetting>();
+            configMock.Setup(configMock => configMock.MinValueInQuestion).Returns(0);
+            configMock.Setup(configMock => configMock.MaxValueInQuestion).Returns(12);
             configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp((Operator)operatorIndex));
             configMock.Setup(configMock => configMock.Operators).Returns(new List<OperatorContext>
             {
@@ -84,15 +84,15 @@ namespace FlashCardGame.Modules.Game.Tests
                 },
                 new OperatorContext()
                 {
-                    Name = Operator.Multiply,
+                    Name = Operator.Multiplication,
                     Icon = MaterialDesignIcons.Multiplication,
-                    Handler = new ArithmeticOp(Operator.Multiply)
+                    Handler = new ArithmeticOp(Operator.Multiplication)
                 },
                 new OperatorContext()
                 {
-                    Name = Operator.Divide,
+                    Name = Operator.Division,
                     Icon = MaterialDesignIcons.Division,
-                    Handler = new ArithmeticOp(Operator.Divide)
+                    Handler = new ArithmeticOp(Operator.Division)
                 }
             });
             return configMock;

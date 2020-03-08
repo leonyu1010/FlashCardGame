@@ -15,13 +15,11 @@ namespace FlashCardGame.Modules.Game.ViewModels
 {
     public class GameSettingViewModel : BindableBase
     {
-        public GameSettingViewModel(IGameConfig gameConfig, IEventAggregator ea)
+        public GameSettingViewModel(IGameSetting gameConfig)
         {
-            _ea = ea;
             _gameConfig = gameConfig;
 
-            _isZeroIncluded = true;
-
+            IncludeZero = _gameConfig.MinValueInQuestion == 0;
             Operators = _gameConfig.Operators;
             SelectedOp = Operators[2];
         }
@@ -39,19 +37,16 @@ namespace FlashCardGame.Modules.Game.ViewModels
         public List<OperatorContext> Operators
         {
             get { return _operators; }
-            set
-            {
-                SetProperty(ref _operators, value);
-            }
+            set { SetProperty(ref _operators, value); }
         }
 
-        public bool IsZeroIncluded
+        public bool IncludeZero
         {
-            get { return _isZeroIncluded; }
+            get { return _includeZero; }
             set
             {
-                SetProperty(ref _isZeroIncluded, value);
-                _gameConfig.MinValue = _isZeroIncluded ? 0 : 1;
+                SetProperty(ref _includeZero, value);
+                _gameConfig.MinValueInQuestion = _includeZero ? 0 : 1;
             }
         }
 
@@ -65,16 +60,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
             }
         }
 
-        private readonly IEventAggregator _ea;
-
-        private readonly IGameConfig _gameConfig;
-
+        private readonly IGameSetting _gameConfig;
         private bool _useRandomOp;
-
         private List<OperatorContext> _operators;
-
         private OperatorContext _selectedOp;
-
-        private bool _isZeroIncluded;
+        private bool _includeZero;
     }
 }

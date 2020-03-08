@@ -1,13 +1,9 @@
 ﻿using FlashCardGame.Core.Constants;
 using FlashCardGame.Core.Events;
 using FlashCardGame.Modules.Game.Service;
-using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 
@@ -15,7 +11,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 {
     public class TimingViewModel : BindableBase
     {
-        public TimingViewModel(IEventAggregator ea, IGameConfig gameConfig)
+        public TimingViewModel(IEventAggregator ea, IGameSetting gameConfig)
         {
             _gameConfig = gameConfig;
             SecondsRemaining = (int)_gameConfig.GameDuration.TotalSeconds;
@@ -30,10 +26,8 @@ namespace FlashCardGame.Modules.Game.ViewModels
             set { SetProperty(ref _secondsRemaining, value); }
         }
 
-        private readonly IRegionManager _regionManager;
-        private readonly IGameConfig _gameConfig;
+        private readonly IGameSetting _gameConfig;
         private readonly IEventAggregator _ea;
-
         private IDisposable _gameTimer;
         private int _secondsRemaining;
 
@@ -41,13 +35,9 @@ namespace FlashCardGame.Modules.Game.ViewModels
         {
             if (message == GameControlMessage.Start)
             {
-                if (_gameTimer != null)
-                {
-                    _gameTimer.Dispose();
-                }
                 FireTimer();
             }
-            else if (message == GameControlMessage.Stop)
+            else if (message == GameControlMessage.GameTimeout)
             {
                 _gameTimer?.Dispose();
             }
@@ -55,6 +45,11 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void FireTimer()
         {
+            if (_gameTimer != null)
+            {
+                _gameTimer.Dispose();
+            }
+
             _gameTimer = Observable.Interval(TimeSpan.FromSeconds(1), Scheduler.Default).Subscribe(OnTimerEvent);
         }
 
@@ -64,7 +59,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
             if (value == _gameConfig.GameDuration.TotalSeconds)
             {
-                _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Stop);
+                _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.GameTimeout);
             }
         }
     }

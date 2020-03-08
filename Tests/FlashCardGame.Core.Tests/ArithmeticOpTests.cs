@@ -12,7 +12,7 @@ namespace FlashCardGame.Core.Tests
         [Fact]
         public void ArithmeticOpTests_DivideByZero()
         {
-            var op = new ArithmeticOp(Operator.Divide);
+            var op = new ArithmeticOp(Operator.Division);
 
             Assert.Throws<DivideByZeroException>(() => op.Divide(1, AppConstants.Tolerance));
         }
@@ -20,7 +20,7 @@ namespace FlashCardGame.Core.Tests
         [Fact]
         public void ArithmeticOpTests_Divide_BiggerThanEps()
         {
-            var op = new ArithmeticOp(Operator.Divide);
+            var op = new ArithmeticOp(Operator.Division);
             var denominator = AppConstants.Tolerance + 0.1;
             var result = op.Divide(1, denominator);
 

@@ -5,7 +5,5 @@ namespace FlashCardGame.Modules.Game.Service
     public interface IQuestionGenerator
     {
         GameQuestion GenerateQuestion();
-
-        void Reset();
     }
 }

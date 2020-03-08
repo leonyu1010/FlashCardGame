@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace FlashCardGame.Modules.Game.Service
 {
-    public class GameConfig : IGameConfig
+    public class GameSetting : IGameSetting
     {
-        public GameConfig()
+        public GameSetting()
         {
             GameDuration = TimeSpan.FromMinutes(1);
-            MinValue = 0;
-            MaxValue = 12;
+            MinValueInQuestion = 0;
+            MaxValueInQuestion = 12;
             InitOperatorList();
         }
 
@@ -18,9 +18,9 @@ namespace FlashCardGame.Modules.Game.Service
 
         public TimeSpan GameDuration { get; set; }
 
-        public int MinValue { get; set; }
+        public int MinValueInQuestion { get; set; }
 
-        public int MaxValue { get; set; }
+        public int MaxValueInQuestion { get; set; }
 
         public bool UseRandomOp { get; set; }
 
@@ -45,15 +45,15 @@ namespace FlashCardGame.Modules.Game.Service
                 },
                 new OperatorContext()
                 {
-                    Name = Operator.Multiply,
+                    Name = Operator.Multiplication,
                     Icon = MaterialDesignIcons.Multiplication,
-                    Handler = new ArithmeticOp(Operator.Multiply)
+                    Handler = new ArithmeticOp(Operator.Multiplication)
                 },
                 new OperatorContext()
                 {
-                    Name = Operator.Divide,
+                    Name = Operator.Division,
                     Icon = MaterialDesignIcons.Division,
-                    Handler = new ArithmeticOp(Operator.Divide)
+                    Handler = new ArithmeticOp(Operator.Division)
                 }
             };
         }
