@@ -89,6 +89,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
                     FileLogger.Singleton.Information("WrongAnswer [{question} = {answer}]", Question, answer);
                 }
             }
+            else
+            {
+                FileLogger.Singleton.Information("NoAnswer [{question}]", Question);
+            }
             int score = correct ? 1 : -1;
             _ea.GetEvent<UpdateScoreEvent>().Publish(score);
             _ea.GetEvent<SendAnswerResultEvent>().Publish(correct);
