@@ -15,7 +15,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center">Game Setting</TextBlock>
+
+            <materialDesign:PackIcon Kind="Settings" Grid.Row="0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
             <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
 
             <CheckBox Grid.Row="2" IsChecked="{Binding IncludeZero}" Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" HorizontalAlignment="Left">Include Zero in Question</CheckBox>
