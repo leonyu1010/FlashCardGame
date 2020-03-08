@@ -5,9 +5,9 @@ namespace FlashCardGame.Modules.Game.Views
     /// <summary>
     /// Interaction logic for GameView
     /// </summary>
-    public partial class GameView : UserControl
+    public partial class GameSettingView : UserControl
     {
-        public GameView()
+        public GameSettingView()
         {
             InitializeComponent();
         }

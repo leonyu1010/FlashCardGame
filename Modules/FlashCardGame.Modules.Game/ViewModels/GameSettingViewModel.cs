@@ -13,9 +13,9 @@ using System.Linq;
 
 namespace FlashCardGame.Modules.Game.ViewModels
 {
-    public class GameViewModel : BindableBase
+    public class GameSettingViewModel : BindableBase
     {
-        public GameViewModel(IGameConfig gameConfig, IEventAggregator ea)
+        public GameSettingViewModel(IGameConfig gameConfig, IEventAggregator ea)
         {
             _ea = ea;
             _gameConfig = gameConfig;
@@ -44,9 +44,6 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 SetProperty(ref _operators, value);
             }
         }
-
-        public DelegateCommand StartNewGameCommand =>
-            _startNewGameCommand ?? (_startNewGameCommand = new DelegateCommand(ExecuteNewGame));
 
         public bool IsZeroIncluded
         {
@@ -78,13 +75,6 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private OperatorContext _selectedOp;
 
-        private DelegateCommand _startNewGameCommand;
-
         private bool _isZeroIncluded;
-
-        private void ExecuteNewGame()
-        {
-            _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Start);
-        }
     }
 }

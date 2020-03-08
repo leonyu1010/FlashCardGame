@@ -5,28 +5,55 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="clr-namespace:FlashCardGame.Modules.Game.Control"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
-            <StackPanel Orientation="Vertical" Margin="16">
-                <materialDesign:PackIcon Kind="QuestionMarkCircle" Height="64" Width="64" />
-
-                <StackPanel Orientation="Horizontal" Margin="16">
-                    <Label x:Name="Number1Text" FontSize="20" Width="30" Content="{Binding Question.Pair.Number1}" />
-                    <materialDesign:PackIcon Kind="{Binding Question.OpCtx.Icon}" Height="20" Width="20" />
-                    <Label x:Name="Number2Text" FontSize="20" Width="30" Content="{Binding Question.Pair.Number2}" />
-                </StackPanel>
-                <controls:NumericTextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Your Answer"
-                                         Width="100" Margin="0 0 0 0" VerticalAlignment="Bottom"
-                                         Text="{Binding AnswerText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, ConverterCulture='en-US', StringFormat='F2'}" IsDecimalAllowed="True"
-                                                MaxLength="20" Scale="2" IsEnabled="True">
+        <materialDesign:Card Background="LightYellow"  VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <materialDesign:PackIcon Kind="QuestionMarkCircle" Grid.Row="0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="Number1Text" Grid.Column="0" FontSize="20" Width="30" Content="{Binding Question.Pair.Number1}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <materialDesign:PackIcon Kind ="{Binding Question.OpCtx.Icon}" Grid.Column="1" Height="{Binding IconHeight}" Width="{Binding IconWidth}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label x:Name="Number2Text" Grid.Column="2" FontSize="20" Width="30" Content="{Binding Question.Pair.Number2}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <controls:NumericTextBox Grid.Row="2" Margin="20 20 20 20" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Your Answer"
+                     Text="{Binding AnswerText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, ConverterCulture='en-US', StringFormat='F2'}" 
+                           IsDecimalAllowed="True" MaxLength="20" Scale="2" IsEnabled="True">
                     <controls:NumericTextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding SubmitAnswerCommand}" />
                     </controls:NumericTextBox.InputBindings>
                 </controls:NumericTextBox>
-                <Button Command="{Binding CheckAnswerCommand}" Margin="10, 10, 10, 10" Content="Check" />
-                <Button Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit" />
-                <Button Command="{Binding NextQuestionCommand}" Margin="10, 10, 10, 10" Content="Next" />
-            </StackPanel>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Command="{Binding StartNewGameCommand}" Margin="10, 10, 10, 10" Content="Start New Game" />
+                        <Button Grid.Row="0" Grid.Column="1" Command="{Binding SubmitAnswerCommand}" Margin="10, 10, 10, 10" Content="Submit Answer" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" Command="{Binding CheckAnswerCommand}" Margin="10, 10, 10, 10" Content="Check Answer" />
+                        <Button Grid.Row="1" Grid.Column="1" Command="{Binding NextQuestionCommand}" Margin="10, 10, 10, 10" Content="Next Question" />
+                    </Grid>
+                </Grid>
+            </Grid>
         </materialDesign:Card>
-    </Grid>
 </UserControl>

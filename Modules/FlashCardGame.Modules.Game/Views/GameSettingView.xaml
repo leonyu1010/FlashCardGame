@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="FlashCardGame.Modules.Game.Views.GameSettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Vertical">
+                <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Game Setting</TextBlock>
+                <CheckBox IsChecked="{Binding Path=IsZeroIncluded}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
+                <CheckBox IsChecked="{Binding Path=UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}">Use Random Arithmetic Operation</CheckBox>
+                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      materialDesign:HintAssist.HelperText="Select one Operator"
+                      ItemsSource="{Binding Path=Operators}"
+                      SelectedItem="{Binding Path=SelectedOp}"
+                      FontSize="18" Margin="10, 10, 10, 10">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:PackIcon Kind="{Binding Icon}" Height="30" Width="30" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="LightCoral">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0" prism:RegionManager.RegionName="QuestionRegion" />
+                <ContentControl Grid.Column="1" prism:RegionManager.RegionName="FeedbackRegion" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <ContentControl Grid.Column="0" prism:RegionManager.RegionName="ScoreBoardRegion" />
+                <ContentControl Grid.Column="1" prism:RegionManager.RegionName="TimingRegion" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

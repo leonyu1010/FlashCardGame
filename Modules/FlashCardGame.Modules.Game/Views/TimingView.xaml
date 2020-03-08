@@ -4,11 +4,24 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="200" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
 
-        <StackPanel Orientation="Horizontal">
-            <materialDesign:PackIcon Kind="ProgressClock" Height="32" Width="32" />
-            <Label Content="{Binding TimeLeft}" />
-        </StackPanel>
+    <materialDesign:Card Background="LightSalmon" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <materialDesign:PackIcon Kind="ProgressClock" Grid.Row="0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="{Binding SecondsRemaining}" Height="100" Width="100" FontSize="20" Margin="10, 10, 10, 10"/>
+                <Label Grid.Row="1" Content="seconds remaining" Height="100" Width="100" FontSize="12" Margin="10, 10, 10, 10"/>
+
+            </Grid>
+
+        </Grid>
     </materialDesign:Card>
 </UserControl>

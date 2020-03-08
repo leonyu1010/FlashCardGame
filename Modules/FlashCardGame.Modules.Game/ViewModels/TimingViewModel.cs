@@ -4,6 +4,7 @@ using FlashCardGame.Modules.Game.Service;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,27 +18,22 @@ namespace FlashCardGame.Modules.Game.ViewModels
         public TimingViewModel(IEventAggregator ea, IGameConfig gameConfig)
         {
             _gameConfig = gameConfig;
+            SecondsRemaining = (int)_gameConfig.GameDuration.TotalSeconds;
 
             _ea = ea;
             _ea.GetEvent<GameControlEvent>().Subscribe(HandleGameControlEvent);
         }
 
-        public string TimeLeft
+        public int SecondsRemaining
         {
-            get
-            {
-                return _timeleft;
-            }
-            set
-            {
-                SetProperty(ref _timeleft, value);
-            }
+            get { return _secondsRemaining; }
+            set { SetProperty(ref _secondsRemaining, value); }
         }
 
+        private readonly IRegionManager _regionManager;
         private readonly IGameConfig _gameConfig;
         private readonly IEventAggregator _ea;
 
-        private string _timeleft;
         private IDisposable _gameTimer;
         private int _secondsRemaining;
 
@@ -64,18 +60,12 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void OnTimerEvent(long value)
         {
-            _secondsRemaining = (int)_gameConfig.GameDuration.TotalSeconds - (int)value;
-            UpdateUI();
+            SecondsRemaining = (int)_gameConfig.GameDuration.TotalSeconds - (int)value;
 
             if (value == _gameConfig.GameDuration.TotalSeconds)
             {
                 _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Stop);
             }
-        }
-
-        private void UpdateUI()
-        {
-            TimeLeft = $"you have {_secondsRemaining} seconds left";
         }
     }
 }

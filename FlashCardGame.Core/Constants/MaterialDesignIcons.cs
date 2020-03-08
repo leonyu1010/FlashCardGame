@@ -10,7 +10,7 @@ namespace FlashCardGame.Core
         public const string Minus = "Minus";
         public const string Plus = "Add";
         public const string Multiplication = "Multiplication";
-        public const string Tick = "Tick";
-        public const string Error = "Error";
+        public const string Tick = "ThumbsUpOutline"; //"Tick";
+        public const string Error = "SmileySadOutline"; //"Error";
     }
 }

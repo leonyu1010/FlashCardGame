@@ -23,7 +23,7 @@ namespace FlashCardGame.Modules.Game
             containerRegistry.RegisterSingleton<IGameConfig, GameConfig>();
             containerRegistry.Register<IQuestionGenerator, QuestionGenerator>();
 
-            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(GameView));
+            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(GameSettingView));
             _regionManager.RegisterViewWithRegion("QuestionRegion", typeof(QuestionView));
             _regionManager.RegisterViewWithRegion("ScoreBoardRegion", typeof(ScoreBoardView));
             _regionManager.RegisterViewWithRegion("TimingRegion", typeof(TimingView));
