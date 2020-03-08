@@ -5,11 +5,26 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <materialDesign:Card Background="LightBlue" VerticalAlignment="Center" HorizontalAlignment="Center" materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" Margin="16">
-        <StackPanel x:Name="ControlButtons" Grid.Column="0" Orientation="Vertical">
-            <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Game Setting</TextBlock>
-            <CheckBox IsChecked="{Binding IncludeZero}" Style="{StaticResource MaterialDesignCheckBox}">Include Zero in Question</CheckBox>
-            <CheckBox IsChecked="{Binding UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}">Use Random Arithmetic Operation</CheckBox>
-            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center">Game Setting</TextBlock>
+            <TextBlock Grid.Row="1" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
+
+            <CheckBox Grid.Row="2" IsChecked="{Binding IncludeZero}" Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" HorizontalAlignment="Left">Include Zero in Question</CheckBox>
+            <TextBlock Grid.Row="3" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
+
+            <CheckBox Grid.Row="4" IsChecked="{Binding UseRandomOp}" Style="{StaticResource MaterialDesignCheckBox}" VerticalAlignment="Center" HorizontalAlignment="Left">Use Random Arithmetic Operation</CheckBox>
+            <TextBlock Grid.Row="5" Style="{StaticResource MaterialDesignHeadline5TextBlock}" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
+
+            <ComboBox Grid.Row="6" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       materialDesign:HintAssist.HelperText="Select one Operator"
                       ItemsSource="{Binding Operators}"
                       SelectedItem="{Binding SelectedOp}"
@@ -20,6 +35,6 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-        </StackPanel>
+        </Grid>
     </materialDesign:Card>
 </UserControl>

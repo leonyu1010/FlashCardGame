@@ -20,9 +20,9 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Number1Text" Grid.Column="0" FontSize="20" Width="30" Content="{Binding Question.Pair.Number1}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock x:Name="Number1Text" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Grid.Column="0"   Text="{Binding Question.Pair.Number1}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                 <materialDesign:PackIcon Kind ="{Binding Question.OpCtx.Icon}" Grid.Column="1" Height="{Binding IconHeight}" Width="{Binding IconWidth}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Label x:Name="Number2Text" Grid.Column="2" FontSize="20" Width="30" Content="{Binding Question.Pair.Number2}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock x:Name="Number2Text" Style="{StaticResource MaterialDesignHeadline4TextBlock}" Grid.Column="2"   Text="{Binding Question.Pair.Number2}" HorizontalAlignment="Left" VerticalAlignment="Center" />
             </Grid>
             <controls:NumericTextBox Grid.Row="2" Margin="20 20 20 20" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Your Answer"

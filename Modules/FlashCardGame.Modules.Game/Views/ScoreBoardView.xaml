@@ -25,8 +25,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Content="Total Scores" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" Margin="10, 10, 10, 10" />
-                    <Label Grid.Column="1" Content="{Binding TotalScore}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="0" Text="Total Scores" Style="{StaticResource MaterialDesignHeadline6TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="1" Text="{Binding TotalScore}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="10, 10, 10, 10" />
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -37,10 +37,10 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Content="Correct Answer: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
-                    <Label Grid.Column="2" Content="Wrong Answer: "  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
-                    <Label Grid.Column="1" Content="{Binding CorrectCount}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
-                    <Label Grid.Column="3" Content="{Binding WrongCount}"   HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="0" Text="Correct Answer: " Style="{StaticResource MaterialDesignSubtitle1TextBlock}" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="2" Text="Wrong Answer: " Style="{StaticResource MaterialDesignSubtitle1TextBlock}"  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="1" Text="{Binding CorrectCount}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
+                    <TextBlock Grid.Column="3" Text="{Binding WrongCount}"  Style="{StaticResource MaterialDesignSubtitle1TextBlock}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="10, 10, 10, 10" />
                 </Grid>
             </Grid>
         </Grid>
