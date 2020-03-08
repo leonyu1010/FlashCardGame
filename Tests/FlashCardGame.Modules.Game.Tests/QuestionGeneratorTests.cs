@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FlashCardGame.Core;
 using FlashCardGame.Modules.Game.Service;
+using FlashCardGame.Modules.Game.Tests.Common;
 using Moq;
 using Xunit;
 
@@ -9,45 +10,53 @@ namespace FlashCardGame.Modules.Game.Tests
     public class QuestionGeneratorTests
     {
         [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(2)]
-        public void QuestionGeneratorTests_CreateValidPairPool(int operatorIndex)
+        [InlineData(0, 0, 12)]
+        [InlineData(1, 0, 12)]
+        [InlineData(2, 0, 12)]
+        [InlineData(0, 1, 12)]
+        [InlineData(1, 1, 12)]
+        [InlineData(2, 1, 12)]
+        public void QuestionGeneratorTests_PlusMinusMultiplication(int operatorIndex, int min, int max)
         {
             //Arrange
 
-            Mock<IGameSetting> configMock = SetupConfigMock(operatorIndex);
+            Mock<IGameSetting> configMock = Helper.SetupConfigMock(operatorIndex, min, max);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
-            int expectedSize = 13 * 13;
+            int expectedQuestionCount = (max - min + 1) * (max - min + 1);
             HashSet<string> questions = new HashSet<string>();
             int count = 0;
-            while (count++ < expectedSize)
+            while (count++ < expectedQuestionCount)
             {
                 questions.Add(questionGenerator.GenerateQuestion().ToString());
             }
 
             //Assert
-            Assert.Equal(expectedSize, questions.Count);
+            Assert.Equal(expectedQuestionCount, questions.Count);
         }
 
-        [Fact]
-        public void QuestionGeneratorTests_CreateValidPairPool_ForDivision()
+        [Theory]
+        [InlineData(3, 0, 12, 13 * 12)]
+        [InlineData(3, 1, 12, 12 * 12)]
+        public void QuestionGeneratorTests_Division(int operatorIndex, int min, int max, int expectedQuestionCount)
         {
             //Arrange
-            var configMock = SetupConfigMock((int)Operator.Division);
+            var configMock = Helper.SetupConfigMock(operatorIndex, min, max);
 
             //Act
             var questionGenerator = new QuestionGenerator(new RandomNumberGenerator(), configMock.Object);
-            int expectedSize = 13 * 12;
-            int poolSize = 13 * 13;
+            int poolSize = (max - min + 1) * (max - min + 1);
+
             HashSet<string> questions = new HashSet<string>();
+
             int count = 0;
             int divideByZero = 0;
-            while (count++ < poolSize)
+            while (count < poolSize)
             {
                 var question = questionGenerator.GenerateQuestion();
+                ++count;
+
                 var denominator = question.Pair.Number2;
                 if (denominator == 0)
                 {
@@ -58,44 +67,8 @@ namespace FlashCardGame.Modules.Game.Tests
             }
 
             //Assert
-            Assert.Equal(expectedSize, questions.Count);
+            Assert.Equal(expectedQuestionCount, questions.Count);
             Assert.Equal(0, divideByZero);
-        }
-
-        private static Mock<IGameSetting> SetupConfigMock(int operatorIndex)
-        {
-            var configMock = new Mock<IGameSetting>();
-            configMock.Setup(configMock => configMock.MinValueInQuestion).Returns(0);
-            configMock.Setup(configMock => configMock.MaxValueInQuestion).Returns(12);
-            configMock.Setup(configMock => configMock.SelectedOp).Returns(new ArithmeticOp((Operator)operatorIndex));
-            configMock.Setup(configMock => configMock.Operators).Returns(new List<OperatorContext>
-            {
-                new OperatorContext()
-                {
-                    Name = Operator.Plus,
-                    Icon = MaterialDesignIcons.Plus,
-                    Handler = new ArithmeticOp(Operator.Plus)
-                },
-                new OperatorContext()
-                {
-                    Name = Operator.Minus,
-                    Icon = MaterialDesignIcons.Minus,
-                    Handler = new ArithmeticOp(Operator.Minus)
-                },
-                new OperatorContext()
-                {
-                    Name = Operator.Multiplication,
-                    Icon = MaterialDesignIcons.Multiplication,
-                    Handler = new ArithmeticOp(Operator.Multiplication)
-                },
-                new OperatorContext()
-                {
-                    Name = Operator.Division,
-                    Icon = MaterialDesignIcons.Division,
-                    Handler = new ArithmeticOp(Operator.Division)
-                }
-            });
-            return configMock;
         }
     }
 }

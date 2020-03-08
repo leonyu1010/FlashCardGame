@@ -7,6 +7,6 @@ namespace FlashCardGame.Core.Constants
     public static class AppConstants
     {
         public static string LogFolder = @"C:\Temp\";
-        public static double Tolerance = 1e-2;
+        public static double Tolerance = 1.5e-2;
     }
 }
