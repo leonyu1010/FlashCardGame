@@ -14,7 +14,7 @@ namespace FlashCardGame.Core.Tests
         {
             var op = new ArithmeticOp(Operator.Divide);
 
-            Assert.Throws<DivideByZeroException>(() => op.Divide(1, 1e-7));
+            Assert.Throws<DivideByZeroException>(() => op.Divide(1, AppConstants.Tolerance));
         }
 
         [Fact]

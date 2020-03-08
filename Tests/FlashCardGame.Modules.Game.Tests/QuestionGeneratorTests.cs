@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using FlashCardGame.Core;
-using FlashCardGame.Model;
 using FlashCardGame.Modules.Game.Service;
 using Moq;
 using Xunit;

@@ -1,14 +1,11 @@
-﻿using FlashCardGame.Core.Constants;
+﻿using FlashCardGame.Core;
+using FlashCardGame.Core.Constants;
 using FlashCardGame.Core.Events;
-using FlashCardGame.Model;
 using FlashCardGame.Modules.Game.Service;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FlashCardGame.Modules.Game.ViewModels
 {

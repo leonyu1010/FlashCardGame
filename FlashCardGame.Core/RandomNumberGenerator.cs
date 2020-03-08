@@ -16,10 +16,10 @@ namespace FlashCardGame.Core
             _generator = new Random();
         }
 
-        public int Number => _generator.Next(_minimum, _maximum);
+        public int Number => _generator.Next(Minimum, Maximum);
 
-        public int Minimum { get { return _minimum; } set => _minimum = value; }
-        public int Maximum { get { return _maximum; } set => _maximum = value; }
+        public int Minimum { get; set; } = 0;
+        public int Maximum { get; set; } = Int32.MaxValue;
 
         public int GetOneNumber(int min, int max)
         {
@@ -27,7 +27,5 @@ namespace FlashCardGame.Core
         }
 
         private Random _generator;
-        private int _minimum = 0;
-        private int _maximum = Int32.MaxValue;
     }
 }

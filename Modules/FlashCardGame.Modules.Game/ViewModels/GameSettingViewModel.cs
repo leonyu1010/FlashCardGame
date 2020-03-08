@@ -1,7 +1,7 @@
 ﻿using FlashCardGame.Core;
 using FlashCardGame.Core.Constants;
 using FlashCardGame.Core.Events;
-using FlashCardGame.Model;
+
 using FlashCardGame.Modules.Game.Service;
 using Prism.Commands;
 using Prism.Events;

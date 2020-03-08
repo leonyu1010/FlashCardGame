@@ -1,7 +1,4 @@
-﻿using FlashCardGame.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FlashCardGame.Core;
 
 namespace FlashCardGame.Modules.Game.Service
 {

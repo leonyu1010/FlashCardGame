@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FlashCardGame.Core\FlashCardGame.Core.csproj" />
-    <ProjectReference Include="..\..\FlashCardGame.Model\FlashCardGame.Model.csproj" />
     <ProjectReference Include="..\..\Modules\FlashCardGame.Modules.Game\FlashCardGame.Modules.Game.csproj" />
   </ItemGroup>
 </Project>

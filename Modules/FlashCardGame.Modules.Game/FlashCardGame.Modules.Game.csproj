@@ -108,10 +108,6 @@
       <Project>{1498c516-3c67-41c8-bc78-a1a9a2907e8e}</Project>
       <Name>FlashCardGame.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FlashCardGame.Model\FlashCardGame.Model.csproj">
-      <Project>{5030574b-252b-42dc-b554-541ea06e2739}</Project>
-      <Name>FlashCardGame.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AnswerFeedbackView.xaml">
