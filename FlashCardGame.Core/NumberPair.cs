@@ -10,5 +10,10 @@ namespace FlashCardGame.Core
     {
         public int Number1 { get; set; }
         public int Number2 { get; set; }
+
+        public override string ToString()
+        {
+            return $"({Number1},{Number2})";
+        }
     }
 }

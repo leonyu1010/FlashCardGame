@@ -1,5 +1,6 @@
 ﻿using FlashCardGame.Core.Constants;
 using FlashCardGame.Core.Events;
+using FlashCardGame.Modules.Game.Service;
 using Prism.Events;
 using Prism.Mvvm;
 
@@ -44,6 +45,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 TotalScore = 0;
                 CorrectCount = 0;
                 WrongCount = 0;
+            }
+            else if (message == GameControlMessage.GameTimeout)
+            {
+                FileLogger.Singleton.Information("GameResult score [{score}] correct [{correct}] wrong [{wrong}]", TotalScore, CorrectCount, WrongCount);
             }
         }
 

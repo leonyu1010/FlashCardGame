@@ -10,6 +10,7 @@ using FlashCardGame.Core;
 //using Microsoft.AppCenter.Analytics;
 //using Microsoft.AppCenter.Crashes;
 using System;
+using FlashCardGame.Modules.Game.Service;
 
 namespace FlashCardGame.UI
 {
@@ -49,6 +50,8 @@ namespace FlashCardGame.UI
               + Environment.NewLine + e.Exception.ToString(), "Unexpected error");
 
             e.Handled = true;
+
+            FileLogger.Singleton.Error("{exception}", e.Exception);
         }
     }
 }

@@ -71,6 +71,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
         private void ExecuteNewGame()
         {
+            FileLogger.Singleton.Information("GameStart");
             _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.Start);
             CanStartGame = false;
         }
@@ -83,6 +84,10 @@ namespace FlashCardGame.Modules.Game.ViewModels
                 double answer = double.Parse(Answer);
                 double correctAnswer = Question.OpCtx.Handler.Calculate(Question.Pair);
                 correct = Math.Abs(correctAnswer - answer) < AppConstants.Tolerance;
+                if (!correct)
+                {
+                    FileLogger.Singleton.Information("WrongAnswer [{question} = {answer}]", Question, answer);
+                }
             }
             int score = correct ? 1 : -1;
             _ea.GetEvent<UpdateScoreEvent>().Publish(score);
@@ -100,6 +105,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             Question = _questionGenerator.GenerateQuestion();
             Icon = Question.OpCtx.Icon;
             Answer = "";
+            FileLogger.Singleton.Debug("Question [{question}]", Question);
         }
 
         private void HandleGameControlEvent(string message)

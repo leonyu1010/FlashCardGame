@@ -49,7 +49,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
             {
                 _gameTimer.Dispose();
             }
-
+            FileLogger.Singleton.Debug("FireTimer");
             _gameTimer = Observable.Interval(TimeSpan.FromSeconds(1), Scheduler.Default).Subscribe(OnTimerEvent);
         }
 
@@ -59,6 +59,7 @@ namespace FlashCardGame.Modules.Game.ViewModels
 
             if (value == _gameConfig.GameDuration.TotalSeconds)
             {
+                FileLogger.Singleton.Information("GameTimeout");
                 _ea.GetEvent<GameControlEvent>().Publish(GameControlMessage.GameTimeout);
             }
         }

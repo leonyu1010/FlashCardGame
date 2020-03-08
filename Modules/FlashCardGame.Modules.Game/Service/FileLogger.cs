@@ -7,22 +7,21 @@ using System.Text;
 
 namespace FlashCardGame.Modules.Game.Service
 {
-    public static class LoggerFactor
-    {
-        public static IAppLogger GetFileLogger()
-        {
-            string _file = AppConstants.LogFolder + "FlashCard.log";
-            var logger = (new LoggerConfiguration().WriteTo.Async(a => a.File(_file)).CreateLogger() as ILogger);
-            return (logger as IAppLogger);
-        }
-    }
-
     public class FileLogger
     {
-        public FileLogger()
+        public static ILogger Singleton
         {
-            string _file = AppConstants.LogFolder + "FlashCard.log";
-            var logger = (new LoggerConfiguration().WriteTo.Async(a => a.File(_file)).CreateLogger() as ILogger);
+            get
+            {
+                if (_logger == null)
+                {
+                    string _file = AppConstants.LogFolder + "FlashCard.log";
+                    _logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.Async(a => a.File(_file)).CreateLogger();
+                }
+                return _logger;
+            }
         }
+
+        private static ILogger _logger;
     }
 }

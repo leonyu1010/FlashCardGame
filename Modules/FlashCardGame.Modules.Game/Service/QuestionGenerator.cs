@@ -36,6 +36,7 @@ namespace FlashCardGame.Modules.Game.Service
                 ++loop;
                 if (loop == _pool.Count)
                 {
+                    FileLogger.Singleton.Error("GenerateQuestion cannot find a valid pair. Pool.Count [{count}]", _pool.Count);
                     throw new Exception("cannot find a valid number pair");
                 }
             }
@@ -80,7 +81,7 @@ namespace FlashCardGame.Modules.Game.Service
             _pool = new List<NumberPair>();
             int min = _gameConfig.MinValueInQuestion;
             int max = _gameConfig.MaxValueInQuestion;
-
+            FileLogger.Singleton.Information("CreatePoolOfAllNumberPairs: min [{min}] max [{max}]", min, max);
             foreach (var number1 in Enumerable.Range(min, max + 1))
             {
                 foreach (var number2 in Enumerable.Range(min, max + 1))
@@ -105,6 +106,7 @@ namespace FlashCardGame.Modules.Game.Service
         /// </summary>
         private void ShufflePool()
         {
+            FileLogger.Singleton.Debug("PoolBeforeShuffle: {pool}", _pool);
             int n = _pool.Count;
             while (n > 1)
             {
@@ -114,6 +116,7 @@ namespace FlashCardGame.Modules.Game.Service
                 _pool[k] = _pool[n];
                 _pool[n] = value;
             }
+            FileLogger.Singleton.Debug("PoolAfterShuffle: {pool}", _pool);
         }
     }
 }
