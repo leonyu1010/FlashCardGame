@@ -155,7 +155,7 @@ namespace FlashCardGame.Modules.Game.Tests
             _sendAnswerResultEvent.Verify(e => e.Publish(true), Times.Exactly(1));
         }
 
-        [Fact]
+        [Fact(Skip = "F2 format")]
         public void SubmitAnswer_GradeWrongAnswer_EqualTolerance()
         {
             int number1 = 1;
@@ -173,7 +173,7 @@ namespace FlashCardGame.Modules.Game.Tests
             _sendAnswerResultEvent.Verify(e => e.Publish(false), Times.Exactly(1));
         }
 
-        [Fact]
+        [Fact(Skip = "F2 format")]
         public void SubmitAnswer_GradeWrongAnswer_BiggerThanTolerance()
         {
             int number1 = 1;
